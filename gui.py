@@ -253,7 +253,7 @@ class Keithley(object):
 
 		self.address = self.config['Keithley']['address']
 		self.k = Keithley2600(self.address)	
-		self.k.smua.source.output = self.k.smua.OUTPUT_ON
+		self.k.smua.source.output = self.k.smua.OUTPUT_ON 
 		self.v=[]
 		self.t=[]
 		
@@ -272,6 +272,7 @@ class Keithley(object):
 		(v_smu, i_smu)=self.k.voltage_sweep_single_smu(self.k.smua, np.linspace(start,end,num=self.num),int_time,delay, pulsed=False)
 		self.data.setDataArray(v_smu,i_smu)
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+		self.k.smua.source.output = self.k.smub.OUTPUT_OFF
 
 
 	def stress(self,stop_event,arg):
@@ -287,12 +288,14 @@ class Keithley(object):
 
 			if stop_event.wait(0.05):
 				self.data.stress=False
+				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 				return
 			
 			sleep(self.sampling_t)
 	
 		self.data.closeFile()
 		self.data.stress = False
+		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 
 		self.pill2kill = threading.Event()
 		self.measThread = threading.Thread(target=self.stress, args=(self.pill2kill, 'test'))
@@ -313,12 +316,14 @@ class Keithley(object):
 
 			if stop_event.wait(0.05):
 				self.data.tddb=False
+				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 				return
 			
 			sleep(self.sampling_t)
 	
 		self.data.closeFile()
 		self.data.tddb = False
+		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 
 		self.thread = threading.Event()
 		self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'test'))
