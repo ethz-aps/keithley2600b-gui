@@ -982,7 +982,7 @@ class TabTDDB(QWidget):
 		self.keithley.voltage = self.vSpinBox.value()
 		self.keithley.period = self.periodSpinBox.value()+1
 		self.keithley.sampling_t = self.sampleSpinBox.value()
-		self.keithley.measThread.start()
+		self.keithley.TDDBThread.start()
 
 
 
