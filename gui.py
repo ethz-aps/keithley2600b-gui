@@ -900,7 +900,7 @@ class TabTDDB(QWidget):
 		self.vSpinBox.setValue(self.v)
 
 		self.periodSpinBox = QDoubleSpinBox()
-		self.periodSpinBox.setMaximum(2000)
+		self.periodSpinBox.setMaximum(10000)
 		self.periodSpinBox.setMinimum(1)
 		self.periodSpinBox.setValue(self.period)
 
