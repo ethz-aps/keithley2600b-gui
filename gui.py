@@ -252,7 +252,7 @@ class Keithley(object):
 
 
 		self.address = self.config['Keithley']['address']
-		self.k = Keithley2600(self.address)	
+		self.k = Keithley2600(self.address)
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON 
 		self.v=[]
 		self.t=[]
