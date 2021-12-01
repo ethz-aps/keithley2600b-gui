@@ -1,8 +1,7 @@
 import sys
 from configobj import ConfigObj
 from PyQt5.QtWidgets import QApplication
-
-from keithley2600 import Keithley2600
+from keithley import Keithley
 from data import Datahandler
 from plot import Plot
 from window import Window
