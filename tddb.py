@@ -116,7 +116,7 @@ class TabTDDB(QWidget):
 
 		self.data_line.clear()
 		self.data.clearData()
-		self.data.setParamStress(self.vSpinBox.value(),self.periodSpinBox.value()+1,self.sampleSpinBox.value(),self.line.text())
+		self.data.setParamTDDB(self.vSpinBox.value(),self.periodSpinBox.value()+1,self.sampleSpinBox.value(),self.line.text())
 
 		self.keithley.voltage = self.vSpinBox.value()
 		self.keithley.period = self.periodSpinBox.value()+1
