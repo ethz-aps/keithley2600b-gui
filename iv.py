@@ -132,7 +132,7 @@ class TabIVLeak (QWidget):
 		self.data.ivLeak= True
 		self.graphWidget.clear()
 		if (self.cbBase.isChecked() == False):
-			"""self.data.checkBaselineIV(self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value())
+			self.data.checkBaselineIV(self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value())
 			if(self.data.IV_Baseline):
 				self.data.setParamIVLeak(self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value(),self.line.text())
 				self.keithley.sweep(self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value())
@@ -144,15 +144,6 @@ class TabIVLeak (QWidget):
 				self.data.ivLeak = False
 			else:
 				y = self.popUpError.exec_()
-			"""
-			self.data.setParamIVLeak(self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value(),self.line.text())
-			self.keithley.sweep(self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value())
-			self.plot.prep()
-			self.data.openFile()
-			self.data.saveArraytoFile()
-			self.graphWidget.plot(self.data.X,self.data.Y)
-			self.data.closeFile()
-			self.data.ivLeak = False
 
 
 		else:

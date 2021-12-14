@@ -22,11 +22,9 @@ class Keithley(object):
 		self.pill2kill = threading.Event()
 		self.measThread = threading.Thread(target=self.stress, args=(self.pill2kill, 'test'))
 
-
 		#Thread for TDDB
 		self.thread = threading.Event()
 		self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'test'))
-
 
 		self.address = self.config['Keithley']['address']
 		self.k = Keithley2600(self.address)	
@@ -43,7 +41,7 @@ class Keithley(object):
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 
 	def sweep_const(self, start, end, step, const, int_time, delay):
-		#voltage sweep
+		#voltage sweep, and const voltage
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON 
 		self.k.apply_voltage(self.k.smub, const)
 		self.num = int(((end - start)/step)+1)
@@ -83,7 +81,7 @@ class Keithley(object):
 
 
 	def tddb(self,stop_event,arg):
-		#stress
+		#tddb
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON 
 		self.k.apply_voltage(self.k.smua, self.voltage)
 		self.period = int(self.period)

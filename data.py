@@ -29,7 +29,6 @@ class Datahandler:
 		self.t =[]
 		self.const=[]
 		
-
 		self.i =[]
 		self.v =[]
 		self.p =[]
@@ -94,7 +93,6 @@ class Datahandler:
 		self.t = t
 		self.device = dev
 
-
 	def setParamStress(self,i,p,t,dev):
 		self.i = i
 		self.p = p
@@ -151,7 +149,6 @@ class Datahandler:
 		self.keithley = ['Working with Keithley 2636B']
 		self.DUT = ['Device under Test: ' + self.device]
 
-		#actual Dataheader, iv = true if IV
 		if(self.ivLeak):
 			self.headerList = ['Voltage in [V]','Current in [A]']
 			self.measType = ['IV-Leakage']
@@ -193,9 +190,6 @@ class Datahandler:
 		self.writer.writerow(self.DUT)			
 		self.writer.writerow(self.headerList)
 
-		#insert etc Header
-		
-
 	def saveArraytoFile(self):
 		for value in range(len(self.X)):
 			self.writer.writerow([self.X[value],self.Y[value]])
@@ -208,7 +202,11 @@ class Datahandler:
 		self.file.close()
 
 	def getNumbers(self, f):
-		return re.search(r'\d+',f).group(0)
+		try: 
+			return re.search(r'\d+',f).group(0)
+		except AttributeError:
+			pass
+			return
 
 	def getNextRunner(self):
 		for filename in os.listdir(self.datadirectory + "/Data"):

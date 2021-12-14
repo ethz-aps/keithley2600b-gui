@@ -29,7 +29,6 @@ class TabBaseline(QWidget):
 
 	def on_click(self):
 		self.base = self.data.getBaseline()
-		#self.base = np.array(self.base)[0]
 		self.graphWidget.clear()
 		self.graphWidget.plot(self.data.X,self.base)
 
