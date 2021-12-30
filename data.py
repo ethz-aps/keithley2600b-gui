@@ -210,7 +210,10 @@ class Datahandler:
 
 	def getNextRunner(self):
 		for filename in os.listdir(self.datadirectory + "/Data"):
-			n = int(self.getNumbers(filename))
+			try:
+				n = int(self.getNumbers(filename))
+			except TypeError:
+				n = 0
 			if (n > self.runner):
 				self.runner = n
 		
