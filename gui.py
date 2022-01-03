@@ -22,8 +22,6 @@ class Datahandler:
 	"""
 
 	def __init__(self):
-
-		#self.datadirectory = "/home/jhora/Desktop/Bachelor/"
 		self.datadirectory = os.getcwd()
 		self.runner = 0
 		self.X=[]

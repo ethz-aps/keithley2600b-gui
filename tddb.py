@@ -110,7 +110,6 @@ class TabTDDB(QWidget):
 			[self.x,self.y]=self.data.getDataArray()
 			self.data_line.setData(self.x,self.y)
 
-
 	def start_click(self):
 		self.data.tddb = True
 
@@ -123,12 +122,9 @@ class TabTDDB(QWidget):
 		self.keithley.sampling_t = self.sampleSpinBox.value()
 		self.keithley.TDDBThread.start()
 
-
-
 	def stop_click(self):
-		
 		self.keithley.thread.set()
-		self.keithley.TDDBThread.join(2)
+		self.keithley.stop_the_thread = True
 		self.keithley.TDDBThread=threading.Thread(target=self.keithley.tddb,args=(self.keithley.thread,'test'))
 		self.data.closeFile()
 
