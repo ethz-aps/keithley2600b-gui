@@ -1,5 +1,5 @@
 from keithley2600 import Keithley2600
-from time import sleep
+import time
 import threading
 import numpy as np
 import os
@@ -92,15 +92,11 @@ class Keithley(object):
 		self.data.openFile()
 		for t in range(0,self.period,self.sampling_t):
 			try:
-				print("test 4")
 				i = self.k.smua.measure.i()
-				print(i)
-				self.data.setDataPoint(t,i)
-				self.data.saveDataPointtoFile(t,i)
-
-				print("hi", self.stop_the_thread)
+				ts = time.time() - self.data.time_epoch
+				self.data.setDataPoint(ts,i)
+				self.data.saveDataPointtoFile(ts,i)
 				if stop_event.wait(0.1) or self.stop_the_thread:
-					print("stopping")
 					self.data.tddb=False
 					self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 					self.data.closeFile()
@@ -109,10 +105,9 @@ class Keithley(object):
 				
 				sleep(self.sampling_t)
 			except:
-				os.system("say 'hello'")
 				self.k.status.reset()
 				pass
-		print("test 5")
+
 	
 		self.data.closeFile()
 		self.data.tddb = False

@@ -1,5 +1,6 @@
 import csv
 import pickle
+import time
 from datetime import datetime
 import threading
 import os
@@ -35,6 +36,7 @@ class Datahandler:
 		self.s =[]
 
 		self.device = []
+		self.time_epoch = []
 
 
 		#Parameters of Baseline-IV
@@ -106,7 +108,7 @@ class Datahandler:
 		self.device = dev
 
 	def setBaselineIV(self,y,s,e,st,t,d):
-		pickle.dump(self.Y,open(self.datadirectory + "baseline.pkl",'wb'))
+		pickle.dump(self.Y,open(self.datadirectory + "/baseline.pkl",'wb'))
 		self.IV_start = s
 		self.IV_end = e
 		self.IV_step = st
@@ -114,7 +116,7 @@ class Datahandler:
 		self.IV_delay = d
 
 	def setBaselineOT(self,y,s,e,st,c,t,d):
-		pickle.dump(self.Y,open(self.datadirectory + "baseline.pkl",'wb'))
+		pickle.dump(self.Y,open(self.datadirectory + "/baseline.pkl",'wb'))
 		self.OT_start = s
 		self.OT_end = e
 		self.OT_step = st
@@ -136,7 +138,7 @@ class Datahandler:
 
 
 	def getBaseline(self):
-		return pickle.load(open(self.datadirectory + 'baseline.pkl','rb'))
+		return pickle.load(open(self.datadirectory + '/baseline.pkl','rb'))
 		
 	def writeHeader(self):
 		"""
@@ -144,6 +146,7 @@ class Datahandler:
 		"""
 		self.now = datetime.now()
 		self.time = self.now.strftime("%d/%m/%Y %H:%M:%S")
+		self.time_epoch = time.time()
 		self.measStart = ['Measurment Start:' + self.time]
 
 		self.keithley = ['Working with Keithley 2636B']
@@ -166,7 +169,7 @@ class Datahandler:
 			self.measType = ['Stress-Measurement']
 			self.param = ['Applied Current: ' + str(self.i)],['Length of Measurement: ' + str(self.p)],['Sampled every ' + str(self.s) + ' seconds']
 		elif(self.tddb):
-			self.headerList = ['Time in [s]','Current in [A]']
+			self.headerList = ['Time in [s]','Current in [A]','Timestamp']
 			self.measType = ['TDDB-Measurement']
 			self.param = ['Applied Voltage: ' + str(self.v)],['Length of Measurement: ' + str(self.p)],['Sampled every ' + str(self.s) + ' seconds']
 	
