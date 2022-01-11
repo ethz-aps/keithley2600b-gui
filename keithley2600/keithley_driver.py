@@ -1010,7 +1010,6 @@ class Keithley2600(Keithley2600Base):
         t_int: float,
         delay: float,
         pulsed: bool,
-        valuerange: float,
     ) -> Tuple[List[float], List[float]]:
         """
         Sweeps the voltage through the specified list of steps at the given
@@ -1058,7 +1057,7 @@ class Keithley2600(Keithley2600Base):
             smu.measure.delay = delay
 
             # enable autorange if not in high capacitance mode
-            if (smu.source.highc == smu.DISABLE|valuerange == 0):
+            if (smu.source.highc == smu.DISABLE):
                 smu.measure.autorangei = smu.AUTORANGE_ON
             else:
                 smu.measure.rangei = rangevalue
