@@ -124,7 +124,7 @@ class TabTDDB(QWidget):
 
 	def stop_click(self):
 		self.keithley.thread.set()
-		self.keithley.stop_the_thread = True
+		self.keithley.stop_the_thread
 		self.keithley.TDDBThread=threading.Thread(target=self.keithley.tddb,args=(self.keithley.thread,'test'))
 		self.data.closeFile()
 
