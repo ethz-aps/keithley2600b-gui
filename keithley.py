@@ -1,5 +1,6 @@
 from keithley2600 import Keithley2600
 import time
+from time import sleep
 import threading
 import numpy as np
 import os
@@ -30,7 +31,7 @@ class Keithley(object):
 		self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'thread2'))
 
 		self.address = self.config['Keithley']['address']
-		self.k = Keithley2600(self.address)	
+		self.k = Keithley2600(self.address,open_timeout = 1000)	
 		self.v=[]
 		self.t=[]
 		
@@ -96,19 +97,27 @@ class Keithley(object):
 				ts = time.time() - self.data.time_epoch
 				self.data.setDataPoint(ts,i)
 				self.data.saveDataPointtoFile(ts,i)
+				if (ts > self.period):
+					break
 				if stop_event.wait(0.1) or self.stop_the_thread:
 					self.data.tddb=False
 					self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 					self.data.closeFile()
 					self.stop_the_thread = False
-					return
+					break
+
+
 				
 				sleep(self.sampling_t)
-			except:
-				self.k.status.reset()
-				pass
+			except ValueError:
+				self.stop_the_thread = False
+				break
 
-	
+			except:
+				os.system("say 'error'")
+				break
+
+				
 		self.data.closeFile()
 		self.data.tddb = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
