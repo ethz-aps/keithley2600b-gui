@@ -34,6 +34,13 @@ class Keithley(object):
 		self.k = Keithley2600(self.address,open_timeout = 1000)	
 		self.v=[]
 		self.t=[]
+
+		#Thread for Steady Voltage Breakdown Measurement
+		self.thread = threading.Thread(target=self.steadyV_DB, args=(self.thread, 'thread3'))
+		self.address = self.config['Keithley']['address']
+		self.k = Keithley2600(self.address,open_timeout=1000)
+		self.v=[]
+		self.t=[]
 		
 
 	def sweep(self, start, end, step, int_time, delay):
@@ -124,4 +131,44 @@ class Keithley(object):
 
 		self.thread = threading.Event()
 		self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'test'))
+		return
+
+	def steadyV_DB(self, stop_event, arg):
+		# steady voltage Breakdown meas.
+		self.k.smua.source.output = self.k.smua.OUTPUT_ON
+		self.k.apply_voltage(self.k.smua, self.voltage)
+		self.sampling_t = int(self.sampling_t)
+		self.data.openFile()
+		i_prev = 10
+		while True:
+			try:
+				i = self.k.smua.measure.i()
+				ts = time.time() - self.data.time_epoch
+				self.data.setDataPoint(ts, i)
+				self.data.saveDataPointtoFile(ts, i)
+
+				if stop_event.wait(0.1) or self.stop_the_thread:
+					self.data.steadyV_DB = False
+					self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+					self.data.closeFile()
+					self.stop_the_thread = False
+					break
+
+				sleep(self.sampling_t)
+			except ValueError:
+				self.stop_the_thread = False
+				break
+
+			except:
+				os.system("say 'error'")
+				break
+			if 4*i>i_prev or i>0.2:
+				break
+			i_prev = i
+		self.data.closeFile()
+		self.data.steadyV_DB = False
+		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+
+		self.thread = threading.Event()
+		self.SteadyV_DBThread = threading.Thread(target=self.steadyV_DB, args=(self.thread, 'test'))
 		return

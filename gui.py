@@ -15,6 +15,8 @@ from os import listdir
 import re
 from configobj import ConfigObj
 from datetime import datetime
+import steadyv_bd
+
 
 class Datahandler:
 	"""
@@ -67,6 +69,7 @@ class Datahandler:
 		self.transfer = False
 		self.stress = False
 		self.tddb = False
+		self.steadyV_DB = False
 
 	def setDataArray(self, x,y):
 		self.X = x
@@ -108,6 +111,12 @@ class Datahandler:
 		self.device = dev
 
 	def setParamTDDB(self,v,p,t,dev):
+		self.v = v
+		self.p = p
+		self.s = t
+		self.device = dev
+
+	def setParamSteadyV_BD(selfself,v,p,t,dev):
 		self.v = v
 		self.p = p
 		self.s = t
@@ -178,7 +187,12 @@ class Datahandler:
 			self.headerList = ['Time in [s]','Current in [A]']
 			self.measType = ['TDDB-Measurement']
 			self.param = ['Applied Voltage: ' + str(self.v)],['Length of Measurement: ' + str(self.p)],['Sampled every ' + str(self.s) + ' seconds']
-	
+		elif (self.steadyV_DB):
+			self.headerList = ['Time in [s]', 'Current in [A]']
+			self.measType = ['SteadyVoltage_DB-Measurement']
+			self.param = ['Applied Voltage: ' + str(self.v)], ['Length of Measurement: ' + str(self.p)], [
+				'Sampled every ' + str(self.s) + ' seconds']
+
 	def openFile(self):
 		self.writeHeader()
 
@@ -254,6 +268,13 @@ class Keithley(object):
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON 
 		self.v=[]
 		self.t=[]
+
+		# Thread for Steady Voltage Breakdown Measurement
+		self.thread = threading.Thread(target=self.steadyV_DB, args=(self.thread, 'thread3'))
+		self.address = self.config['Keithley']['address']
+		self.k = Keithley2600(self.address, open_timeout=1000)
+		self.v = []
+		self.t = []
 		
 
 	def sweep(self, start, end, step, int_time, delay):
@@ -368,6 +389,7 @@ class Window(QDialog):
 		tabwidget.addTab(TabStress(self.keithley,self.plot,self.data,self.config),"Stress")
 		tabwidget.addTab(TabTDDB(self.keithley,self.plot,self.data,self.config),"TDDB")
 		tabwidget.addTab(TabBaseline(self.keithley,self.plot,self.data),"Baseline")
+		tabwidget.addTab(SteadyV_BD(self.keithley,self.plot,self.data, self.config),"Steady Voltage BD")
 
 		vbox.addWidget(tabwidget)
 		self.setLayout(vbox)
