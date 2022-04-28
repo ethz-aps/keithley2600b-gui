@@ -144,6 +144,7 @@ class Keithley(object):
 			sleep(self.sampling_t)
 
 			if 4*i>i_prev or i>0.2:
+				print('Big current')
 				break
 			i_prev = i
 		self.data.closeFile()
