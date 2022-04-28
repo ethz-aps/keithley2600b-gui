@@ -179,7 +179,7 @@ class Datahandler:
 			self.headerList = ['Time in [s]','Current in [A]','Timestamp']
 			self.measType = ['TDDB-Measurement']
 			self.param = ['Applied Voltage: ' + str(self.v)],['Length of Measurement: ' + str(self.p)],['Sampled every ' + str(self.s) + ' seconds']
-		elif (self.steadyV_DB):
+		elif (self.steadyV_BD):
 			self.headerList = ['Time in [s]', 'Current in [A]']
 			self.measType = ['SteadyVoltage_DB-Measurement']
 			self.param = ['Applied Voltage: ' + str(self.v)], [

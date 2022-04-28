@@ -5,6 +5,7 @@ import pyqtgraph as pg
 from PyQt5 import QtCore
 import threading
 import data
+import keithley
 
 
 class SteadyV_BD (QWidget):
@@ -143,7 +144,7 @@ class SteadyV_BD (QWidget):
     def stop_click(self):
         self.keithley.thread.set()
 
-        self.keithley.SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD, args=(self.keithley.thread, 'test'))
+        self.keithley.steadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD, args=(self.keithley.svbd, 'test3'))
         self.data.closeFile()
 
 
