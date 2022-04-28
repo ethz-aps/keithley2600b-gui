@@ -4,6 +4,9 @@ from time import sleep
 import threading
 import numpy as np
 import os
+import stress
+import tddb
+import steadyv_bd
 
 
 class Keithley(object):

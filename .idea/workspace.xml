@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ddc718c8-faf5-44dd-8b54-3dd3e05fba34" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/iv.py" beforeDir="false" afterPath="$PROJECT_DIR$/iv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_transfer.py" beforeDir="false" afterPath="$PROJECT_DIR$/output_transfer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keithley.py" beforeDir="false" afterPath="$PROJECT_DIR$/keithley.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
