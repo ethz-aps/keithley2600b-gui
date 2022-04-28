@@ -153,8 +153,8 @@ class SteadyV_BD (QWidget):
 
     def stop_click(self):
         self.keithley.svbd.set()
-        self.keithley.steadyV_BDThread.join(2)
-        self.keithley.steadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD, args=(self.keithley.svbd, 'test3'))
+        self.keithley.SteadyV_BDThread.join(2)
+        self.keithley.SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD, args=(self.keithley.svbd, 'test3'))
         self.data.closeFile()
 
     def baseline_click(self):
