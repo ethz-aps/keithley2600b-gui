@@ -63,59 +63,59 @@ class Keithley(object):
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 		self.k.smua.source.output = self.k.smub.OUTPUT_OFF
 
-		def stress(self,stop_event,arg):
-			#stress
-			self.k.apply_current(self.k.smua, self.current)
-			self.period = int(self.period)
-			self.sampling_t = int(self.sampling_t)
-			self.data.openFile()
-			for t in range(0,self.period,self.sampling_t):
-				v = self.k.smua.measure.v()
-				self.data.setDataPoint(t,v)
-				self.data.saveDataPointtoFile(t,v)
+	def stress(self,stop_event,arg):
+		#stress
+		self.k.apply_current(self.k.smua, self.current)
+		self.period = int(self.period)
+		self.sampling_t = int(self.sampling_t)
+		self.data.openFile()
+		for t in range(0,self.period,self.sampling_t):
+			v = self.k.smua.measure.v()
+			self.data.setDataPoint(t,v)
+			self.data.saveDataPointtoFile(t,v)
 
-				if stop_event.wait(0.05):
-					self.data.stress=False
-					self.k.smua.source.output = self.k.smua.OUTPUT_OFF
-					return
+			if stop_event.wait(0.05):
+				self.data.stress=False
+				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+				return
 
-				sleep(self.sampling_t)
+			sleep(self.sampling_t)
 
-			self.data.closeFile()
-			self.data.stress = False
-			self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+		self.data.closeFile()
+		self.data.stress = False
+		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 
-			self.pill2kill = threading.Event()
-			self.measThread = threading.Thread(target=self.stress, args=(self.pill2kill, 'test'))
+		self.pill2kill = threading.Event()
+		self.measThread = threading.Thread(target=self.stress, args=(self.pill2kill, 'test'))
 
-			return
+		return
 
-		def tddb(self, stop_event, arg):
+	def tddb(self, stop_event, arg):
 
-			#tddb
-			self.k.apply_voltage(self.k.smua, self.voltage)
-			self.period = int(self.period)
-			self.sampling_t = int(self.sampling_t)
-			self.data.openFile()
-			for t in range(0,self.period,self.sampling_t):
-				i = self.k.smua.measure.i()
-				self.data.setDataPoint(t,i)
-				self.data.saveDataPointtoFile(t,i)
+		#tddb
+		self.k.apply_voltage(self.k.smua, self.voltage)
+		self.period = int(self.period)
+		self.sampling_t = int(self.sampling_t)
+		self.data.openFile()
+		for t in range(0,self.period,self.sampling_t):
+			i = self.k.smua.measure.i()
+			self.data.setDataPoint(t,i)
+			self.data.saveDataPointtoFile(t,i)
 
-				if stop_event.wait(0.05):
-					self.data.tddb=False
-					self.k.smua.source.output = self.k.smua.OUTPUT_OFF
-					return
+			if stop_event.wait(0.05):
+				self.data.tddb=False
+				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+				return
 
-				sleep(self.sampling_t)
+			sleep(self.sampling_t)
 
-			self.data.closeFile()
-			self.data.tddb = False
-			self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+		self.data.closeFile()
+		self.data.tddb = False
+		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 
-			self.thread = threading.Event()
-			self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'test'))
-			return
+		self.thread = threading.Event()
+		self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'test'))
+		return
 
 	def steadyV_DB(self, stop_event, arg):         #Ignore 5 first
 		# steady voltage Breakdown meas.
