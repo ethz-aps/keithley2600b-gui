@@ -6,6 +6,7 @@ from PyQt5 import QtCore
 import threading
 import data
 import keithley
+import Temp_baseline
 
 
 class SteadyV_BD (QWidget):
@@ -30,8 +31,8 @@ class SteadyV_BD (QWidget):
         self.sampleLabel = QLabel('Sampling Time: ')
 
         self.vSpinBox = QDoubleSpinBox()
-        self.vSpinBox.setMaximum(self.vmax)
-        self.vSpinBox.setMinimum(1)
+        self.vSpinBox.setMaximum(200)
+        self.vSpinBox.setMinimum(-200)
         self.vSpinBox.setValue(self.v)
 
         self.sampleSpinBox = QDoubleSpinBox()
@@ -50,6 +51,14 @@ class SteadyV_BD (QWidget):
         self.buttonStart.clicked.connect(self.start_click)
         self.buttonStop = QPushButton("Stop", self)
         self.buttonStop.clicked.connect(self.stop_click)
+        self.buttonBaseline = QPushButton("Baseline",self)
+        self.buttonBaseline.clicked.connect(self.baseline_click)
+
+        self.popUp_svbd = QMessageBox()
+        self.popUp_svbd.setWindowTitle("Baseline Measurement complete")
+        self.popUp_svbd.setText("The Baseline Measurement has been completed.")
+        self.popUp_svbd.setIcon(QMessageBox.Information)
+        self.popUp_svbd.buttonClicked.connect(self.popup_svbd_clicked)
 
         # self.popUp = QMessageBox()
         # self.popUp.setWindowTitle("Baseline Measurement complete")
@@ -111,6 +120,7 @@ class SteadyV_BD (QWidget):
         self.layout = QHBoxLayout()
         self.layout.addWidget(self.buttonStart)
         self.layout.addWidget(self.buttonStop)
+        self.layout.addWidget(self.buttonBaseline)
         self.ButtonGroupbox.setLayout(self.layout)
 
     def update_plot_data(self):
@@ -147,4 +157,9 @@ class SteadyV_BD (QWidget):
         self.keithley.steadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD, args=(self.keithley.svbd, 'test3'))
         self.data.closeFile()
 
+    def baseline_click(self):
+        svbd_baseline()
+        self.popUp_svbd.exec_()
 
+    def popup_svbd_clicked(self):
+        pass

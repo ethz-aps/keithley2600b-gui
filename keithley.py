@@ -143,8 +143,8 @@ class Keithley(object):
 				break
 			sleep(self.sampling_t)
 
-			if 4*i>i_prev or i>0.2:
-				print('Big current')
+			if np.abs(i-i_prev) > 4*np.abs(i_prev) or np.abs(i) > 0.1:
+
 				break
 			i_prev = i
 		self.data.closeFile()
