@@ -16,6 +16,7 @@ class TabStress(QWidget):
 		self.plot = p
 		self.data = d
 		self.config = c
+		self.stress = False
 
 		self.i = float(self.config['Stress-Measurement']['i'])
 		self.period = float(self.config['Stress-Measurement']['period'])
