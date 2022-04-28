@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QWidget, QDoubleSpinBox, QMessageBox, QGroupBox, QFo
 from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
+from PyQt5 import QtCore
+import threading
 
 
 class SteadyV_BD (QWidget):
