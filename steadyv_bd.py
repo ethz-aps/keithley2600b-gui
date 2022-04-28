@@ -18,7 +18,7 @@ class SteadyV_BD (QWidget):
         self.plot = p
         self.data = d
         self.config = c
-        self.steadyV_bd = False
+        self.steadyV_BD = False
 
         self.v = float(self.config['SteadyV_BD']['v'])
         self.sampleTime = float(self.config['SteadyV_BD']['sampletime'])
@@ -112,7 +112,7 @@ class SteadyV_BD (QWidget):
         self.ButtonGroupbox.setLayout(self.layout)
 
     def update_plot_data(self):
-        if (self.data.steadyV_bd):
+        if (self.data.steadyV_BD):
             [self.x, self.y] = self.data.getDataArray()
             self.data_line.setData(self.x, self.y)
 
@@ -128,7 +128,7 @@ class SteadyV_BD (QWidget):
         #     self.data.steadyV_bd = False
 
     def start_click(self):
-        self.data.steadyV_bd = True
+        self.data.steadyV_BD = True
 
         self.data_line.clear()
         self.data.clearData()
@@ -142,7 +142,7 @@ class SteadyV_BD (QWidget):
     def stop_click(self):
         self.keithley.thread.set()
 
-        self.keithley.SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_bd, args=(self.keithley.thread, 'test'))
+        self.keithley.SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD, args=(self.keithley.thread, 'test'))
         self.data.closeFile()
 
 
