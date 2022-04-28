@@ -83,37 +83,37 @@ class SteadyV_BD (QWidget):
         self.vbox.addWidget(self.MeasGroupbox)
         self.setLayout(self.vbox)
 
-        def createDeviceGroupbox(self):
-            self.DeviceGroupbox = QGroupBox("Device")
-            self.layout = QFormLayout()
-            self.layout.addRow(self.deviceLabel, self.line)
-            self.DeviceGroupbox.setLayout(self.layout)
+    def createDeviceGroupbox(self):
+        self.DeviceGroupbox = QGroupBox("Device")
+        self.layout = QFormLayout()
+        self.layout.addRow(self.deviceLabel, self.line)
+        self.DeviceGroupbox.setLayout(self.layout)
 
-        def createMeasGroupbox(self):
-            self.MeasGroupbox = QGroupBox("Plot")
-            self.layout = QVBoxLayout()
-            self.layout.addWidget(self.graphWidget)
-            self.MeasGroupbox.setLayout(self.layout)
+    def createMeasGroupbox(self):
+        self.MeasGroupbox = QGroupBox("Plot")
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.graphWidget)
+        self.MeasGroupbox.setLayout(self.layout)
 
-        def createFormGroupbox(self):
-            self.FormGroupbox = QGroupBox("Parameter")
-            self.Layout = QFormLayout()
-            self.Layout.addRow(self.vLabel, self.vSpinBox)
-            self.Layout.addRow(self.periodLabel, self.periodSpinBox)
-            self.Layout.addRow(self.sampleLabel, self.sampleSpinBox)
-            self.FormGroupbox.setLayout(self.Layout)
+    def createFormGroupbox(self):
+        self.FormGroupbox = QGroupBox("Parameter")
+        self.Layout = QFormLayout()
+        self.Layout.addRow(self.vLabel, self.vSpinBox)
+        self.Layout.addRow(self.periodLabel, self.periodSpinBox)
+        self.Layout.addRow(self.sampleLabel, self.sampleSpinBox)
+        self.FormGroupbox.setLayout(self.Layout)
 
-        def createButtonGroupBox(self):
-            self.ButtonGroupbox = QGroupBox("Measurement")
-            self.layout = QHBoxLayout()
-            self.layout.addWidget(self.buttonStart)
-            self.layout.addWidget(self.buttonStop)
-            self.ButtonGroupbox.setLayout(self.layout)
+    def createButtonGroupBox(self):
+        self.ButtonGroupbox = QGroupBox("Measurement")
+        self.layout = QHBoxLayout()
+        self.layout.addWidget(self.buttonStart)
+        self.layout.addWidget(self.buttonStop)
+        self.ButtonGroupbox.setLayout(self.layout)
 
-        def update_plot_data(self):
-            if (self.data.steadyV_bd):
-                [self.x, self.y] = self.data.getDataArray()
-                self.data_line.setData(self.x, self.y)
+    def update_plot_data(self):
+        if (self.data.steadyV_bd):
+            [self.x, self.y] = self.data.getDataArray()
+            self.data_line.setData(self.x, self.y)
 
         # def popup_clicked(self):
         #     self.data.setParamSteadyV_BD(self.vSpinBox.value(), self.sampleSpinBox.value(),self.line.text())
@@ -126,22 +126,22 @@ class SteadyV_BD (QWidget):
         #     self.data.closeFile()
         #     self.data.steadyV_bd = False
 
-        def start_click(self):
-            self.data.steadyV_bd = True
+    def start_click(self):
+        self.data.steadyV_bd = True
 
-            self.data_line.clear()
-            self.data.clearData()
-            self.data.setParamSteadyV_BD(self.vSpinBox.value(), self.sampleSpinBox.value(),
-                                   self.line.text())
+        self.data_line.clear()
+        self.data.clearData()
+        self.data.setParamSteadyV_BD(self.vSpinBox.value(), self.sampleSpinBox.value(),
+                               self.line.text())
 
-            self.keithley.voltage = self.vSpinBox.value()
-            self.keithley.sampling_t = self.sampleSpinBox.value()
-            self.keithley.SteadyV_BDThread.start()
+        self.keithley.voltage = self.vSpinBox.value()
+        self.keithley.sampling_t = self.sampleSpinBox.value()
+        self.keithley.SteadyV_BDThread.start()
 
-        def stop_click(self):
-            self.keithley.thread.set()
-           
-            self.keithley.SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_bd, args=(self.keithley.thread, 'test'))
-            self.data.closeFile()
+    def stop_click(self):
+        self.keithley.thread.set()
+
+        self.keithley.SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_bd, args=(self.keithley.thread, 'test'))
+        self.data.closeFile()
 
 

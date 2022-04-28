@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ddc718c8-faf5-44dd-8b54-3dd3e05fba34" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/keithley.py" beforeDir="false" afterPath="$PROJECT_DIR$/keithley.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/steadyv_bd.py" beforeDir="false" afterPath="$PROJECT_DIR$/steadyv_bd.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
