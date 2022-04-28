@@ -125,17 +125,17 @@ class Keithley(object):
 		self.data.openFile()
 		i_prev = 10
 		count = 0
+		tm = 0
 		while True:
 
 			i = self.k.smua.measure.i()
 			if count<5: #Measurement does not record the first 5 values because of inaccuries in the measurement system
 				count = count + 1
 				sleep(self.sampling_t)
-				start_time = time.time()
 				continue
-			ts = time.time() - start_time
-			self.data.setDataPoint(ts, i)
-			self.data.saveDataPointtoFile(ts, i)
+
+			self.data.setDataPoint(tm, i)
+			self.data.saveDataPointtoFile(tm, i)
 			if stop_event.wait(0.1):
 				self.data.steadyV_BD = False
 				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
@@ -147,6 +147,7 @@ class Keithley(object):
 
 				break
 			i_prev = i
+			tm = tm + self.sampling_t
 		self.data.closeFile()
 		self.data.steadyV_BD = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
