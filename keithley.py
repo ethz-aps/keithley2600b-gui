@@ -143,7 +143,7 @@ class Keithley(object):
 				break
 			sleep(self.sampling_t)
 
-			if np.abs(i-i_prev) > 4*np.abs(i_prev) or np.abs(i) > 0.1:
+			if np.abs(i-i_prev) > 10*np.abs(i_prev) or np.abs(i) > 0.1:
 
 				break
 			i_prev = i
