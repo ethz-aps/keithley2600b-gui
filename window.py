@@ -5,6 +5,8 @@ from output_transfer import TabOT
 from stress import TabStress
 from tddb import TabTDDB
 from steadyv_bd import SteadyV_BD
+import data
+import config
 
 class Window(QDialog):
 	"""

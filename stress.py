@@ -4,6 +4,7 @@ from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
 import threading
+import data
 
 class TabStress(QWidget):
 	"""
@@ -108,7 +109,7 @@ class TabStress(QWidget):
 		self.ButtonGroupbox.setLayout(self.layout)
 
 	def update_plot_data(self):
-		if(self.data.stress):
+		if self.data.stress:
 			[self.x,self.y]=self.data.getDataArray()
 			self.data_line.setData(self.x,self.y)
 

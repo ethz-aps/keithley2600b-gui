@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QDoubleSpinBox, QMessageBox, QGroupBox, QFo
 from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
+import data
 
 class TabOT (QWidget):
 	"""

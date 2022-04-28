@@ -4,6 +4,7 @@ from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
 import threading
+import data
 
 class TabTDDB(QWidget):
 	"""

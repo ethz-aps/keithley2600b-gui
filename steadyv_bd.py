@@ -4,6 +4,7 @@ from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
 from PyQt5 import QtCore
 import threading
+import data
 
 
 class SteadyV_BD (QWidget):

@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QGroupBox, QWidget, QVBoxLayout
 from PyQt5.Qt import QPushButton
 from pyqtgraph import PlotWidget, plot
 import pyqtgraph as pg
+import data
 
 class TabBaseline(QWidget):
 	def __init__(self,k,p,d):
