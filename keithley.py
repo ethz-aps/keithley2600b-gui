@@ -129,13 +129,13 @@ class Keithley(object):
 		while True:
 
 			i = self.k.smua.measure.i()
-			tm = time.time()-start_time
+			
 			if count<5: #Measurement does not record the first 5 values because of inaccuries in the measurement system
 				count = count + 1
 				sleep(self.sampling_t)
 				start_time = time.time()
 				continue
-
+			tm = time.time() - start_time
 			self.data.setDataPoint(tm, i)
 			self.data.saveDataPointtoFile(tm, i)
 			if stop_event.wait(0.1):
