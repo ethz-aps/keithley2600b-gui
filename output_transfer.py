@@ -3,7 +3,7 @@ from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
 
- class TabOT (QWidget):
+class TabOT (QWidget):
 	"""
 	Design and funcionality of Tab for one voltage sweep and one constant voltage.
 	"""

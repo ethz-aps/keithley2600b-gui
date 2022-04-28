@@ -3,7 +3,7 @@ from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
 
- class TabIVLeak (QWidget):
+class TabIVLeak (QWidget):
 	"""
 	Design and funcionality of Tab for IV Measurements.
 	"""
