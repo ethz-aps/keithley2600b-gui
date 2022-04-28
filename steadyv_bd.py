@@ -101,7 +101,6 @@ class SteadyV_BD (QWidget):
         self.FormGroupbox = QGroupBox("Parameter")
         self.Layout = QFormLayout()
         self.Layout.addRow(self.vLabel, self.vSpinBox)
-        self.Layout.addRow(self.periodLabel, self.periodSpinBox)
         self.Layout.addRow(self.sampleLabel, self.sampleSpinBox)
         self.FormGroupbox.setLayout(self.Layout)
 
