@@ -6,7 +6,7 @@ from PyQt5 import QtCore
 import threading
 import data
 import keithley
-import Temp_baseline
+import Temp_baseline as Tbl
 
 
 class SteadyV_BD (QWidget):
@@ -158,7 +158,7 @@ class SteadyV_BD (QWidget):
         self.data.closeFile()
 
     def baseline_click(self):
-        svbd_baseline()
+        Tbl.svbd_baseline()
         self.popUp_svbd.exec_()
 
     def popup_svbd_clicked(self):
