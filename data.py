@@ -36,7 +36,7 @@ class Datahandler:
 		self.s =[]
 
 		self.device = []
-		self.time_epoch = []
+		#self.time_epoch = []
 
 
 		#Parameters of Baseline-IV
@@ -56,17 +56,13 @@ class Datahandler:
 		self.OT_delay = []
 		self.OT_Baseline = False
 
-		#Parameters of Baseline-SteadyV_BD
-		self.SVBD_voltage = []
-		self.SVBD_Baseline = False
-
 		#Boolean for Tab-Check
 		self.ivLeak = False
 		self.output = False
 		self.transfer = False
 		self.stress = False
 		self.tddb = False
-		self.steadyV_bd = False
+		self.steadyV_BD = False
 
 	def setDataArray(self, x,y):
 		self.X = x
@@ -112,9 +108,8 @@ class Datahandler:
 		self.s = t
 		self.device = dev
 
-	def setParamSteadyV_BD(self, v, p, t, dev):
+	def setParamSteadyV_BD(self, v, t, dev):
 		self.v = v
-		self.p = p
 		self.s = t
 		self.device = dev
 
@@ -135,25 +130,6 @@ class Datahandler:
 		self.OT_int_time = t
 		self.OT_delay = d
 
-"""	
-	Writes the Baseline measurement of the Steady Voltage procedure in a file
-	voltage: the voltage at which the Baseline measurement is taken. Baseline and 'Real' Measurement voltages must be the same
-	returns: nothing
-"""
-	def setBaselineSteadyV_BD(self,y,voltage):
-		pickle.dump(self.Y,open(self.datadirectory + "/baseline.pkl",'wb'))
-		self.SVBD_voltage = voltage
-
-"""
-	Checks whether the measurement and the baseline voltage are the same & sets SVBD_Baseline accordingly
-	voltage: the voltage at which the measurement is taken
-	return: nothing
-"""
-	def checkBaseLineSVBD(self,voltage):
-		if self.SVBD_voltage == voltage:
-			self.SVBD_Baseline = True
-		else:
-			self.SVBD_Baseline = False
 
 	def checkBaselineIV(self,s,e,st,t,d):
 		if(self.IV_start == s and self.IV_end == e and self.IV_step == st and self.IV_int_time == t and self.IV_delay == d):
@@ -177,7 +153,7 @@ class Datahandler:
 		"""
 		self.now = datetime.now()
 		self.time = self.now.strftime("%d/%m/%Y %H:%M:%S")
-		self.time_epoch = time.time()
+		#self.time_epoch = time.time()
 		self.measStart = ['Measurment Start:' + self.time]
 
 		self.keithley = ['Working with Keithley 2636B']
@@ -203,7 +179,7 @@ class Datahandler:
 			self.headerList = ['Time in [s]','Current in [A]','Timestamp']
 			self.measType = ['TDDB-Measurement']
 			self.param = ['Applied Voltage: ' + str(self.v)],['Length of Measurement: ' + str(self.p)],['Sampled every ' + str(self.s) + ' seconds']
-		elif (self.steadyV_db):
+		elif (self.steadyV_DB):
 			self.headerList = ['Time in [s]', 'Current in [A]']
 			self.measType = ['SteadyVoltage_DB-Measurement']
 			self.param = ['Applied Voltage: ' + str(self.v)], [

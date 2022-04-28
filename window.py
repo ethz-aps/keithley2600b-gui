@@ -29,10 +29,9 @@ class Window(QDialog):
 		tabwidget.addTab(TabStress(self.keithley,self.plot,self.data,self.config),"Stress")
 		tabwidget.addTab(TabTDDB(self.keithley,self.plot,self.data,self.config),"TDDB")
 		tabwidget.addTab(TabBaseline(self.keithley,self.plot,self.data),"Baseline")
-		tabwidget.addTab(TabSteadyV_BD(self.keithley,self.plot,self.data,self.config),"Steady Voltage BD")
-
+		tabwidget.addTab(SteadyV_BD(self.keithley,self.plot,self.data, self.config),"Steady Voltage Breakdown")
 
 		vbox.addWidget(tabwidget)
 		self.setLayout(vbox)
 
-		self.show()
+# 		self.show()

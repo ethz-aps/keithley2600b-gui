@@ -1,6 +1,6 @@
 import numpy as np
 
-class Plot:
+ class Plot:
 	"""
 	Preprocesses data for ploting.
 	"""

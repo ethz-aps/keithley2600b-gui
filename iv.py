@@ -3,7 +3,7 @@ from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
 
-class TabIVLeak (QWidget):
+ class TabIVLeak (QWidget):
 	"""
 	Design and funcionality of Tab for IV Measurements.
 	"""
@@ -24,8 +24,8 @@ class TabIVLeak (QWidget):
 		self.vStartLabel = QLabel('Start Voltage: ')
 		self.vStopLabel = QLabel('Stop Voltage: ')
 		self.vStepLabel = QLabel('dV: ')
-		self.delayLabel = QLabel('Delay: ')  
-		self.tLabel = QLabel('Int Time: ')  
+		self.delayLabel = QLabel('Delay: ')
+		self.tLabel = QLabel('Int Time: ')
 
 		self.vStartSpinBox = QDoubleSpinBox()
 		self.vStartSpinBox.setMaximum(20)
@@ -144,11 +144,9 @@ class TabIVLeak (QWidget):
 				self.data.ivLeak = False
 			else:
 				y = self.popUpError.exec_()
-			
-
 
 		else:
 			#Baseline measurement
 			self.keithley.sweep(self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value())
 			self.data.setBaselineIV(self.data.Y,self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value())
-			x = self.popUp.exec_()	
+			x = self.popUp.exec_()

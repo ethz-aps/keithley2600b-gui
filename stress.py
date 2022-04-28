@@ -10,13 +10,13 @@ class TabStress(QWidget):
 	Design and funcionality of Tab for stressing-measurements.
 	"""
 	def __init__(self,k,p,d,c):
-		super().__init__() 
+		super().__init__()
 
 		self.keithley = k
 		self.plot = p
 		self.data = d
 		self.config = c
-		
+
 		self.i = float(self.config['Stress-Measurement']['i'])
 		self.period = float(self.config['Stress-Measurement']['period'])
 		self.sampleTime = float(self.config['Stress-Measurement']['sampletime'])
@@ -25,7 +25,7 @@ class TabStress(QWidget):
 
 		self.iLabel = QLabel('Applied Current: ')
 		self.periodLabel = QLabel('Period: ')
-		self.sampleLabel = QLabel('Sampling Time: ')   
+		self.sampleLabel = QLabel('Sampling Time: ')
 
 		self.iSpinBox = QDoubleSpinBox()
 		self.iSpinBox.setMaximum(self.imax)
@@ -90,7 +90,7 @@ class TabStress(QWidget):
 		self.layout.addWidget(self.graphWidget)
 		self.MeasGroupbox.setLayout(self.layout)
 
-	
+
 	def createFormGroupbox(self):
 		self.FormGroupbox = QGroupBox("Parameter")
 		self.Layout = QFormLayout()
@@ -127,8 +127,10 @@ class TabStress(QWidget):
 
 
 	def stop_click(self):
-		
+
 		self.keithley.pill2kill.set()
 		self.keithley.measThread.join(2)
 		self.keithley.measThread=threading.Thread(target=self.keithley.stress,args=(self.keithley.pill2kill,'test'))
 		self.data.closeFile()
+
+
