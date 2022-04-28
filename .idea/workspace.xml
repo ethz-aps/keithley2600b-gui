@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ddc718c8-faf5-44dd-8b54-3dd3e05fba34" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/stress.py" beforeDir="false" afterPath="$PROJECT_DIR$/stress.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -6,7 +6,7 @@ from stress import TabStress
 from tddb import TabTDDB
 from steadyv_bd import SteadyV_BD
 import data
-
+from configobj import ConfigObj
 
 class Window(QDialog):
 	"""
@@ -36,4 +36,4 @@ class Window(QDialog):
 		vbox.addWidget(tabwidget)
 		self.setLayout(vbox)
 
-# 		self.show()
+		self.show()

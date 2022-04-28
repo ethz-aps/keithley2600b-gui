@@ -110,8 +110,8 @@ class TabStress(QWidget):
 
 	def update_plot_data(self):
 		if self.data.stress:
-			[self.x,self.y]=self.data.getDataArray()
-			self.data_line.setData(self.x,self.y)
+			[self.x, self.y]=self.data.getDataArray()
+			self.data_line.setData(self.x, self.y)
 
 
 	def start_click(self):
