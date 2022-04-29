@@ -141,19 +141,16 @@ class Keithley(object):
 			if stop_event.wait(0.1):
 				self.data.steadyV_BD = False
 				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
-
 				break
-			sleep(self.sampling_t)
 
 			if np.abs(i-i_prev) > 10*np.abs(i_prev) or np.abs(i) > 0.1:
-
 				break
 			i_prev = i
-			tm = tm + self.sampling_t
+			sleep(self.sampling_t)
 		self.data.closeFile()
 		self.data.steadyV_BD = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
-		self.keithley.svbd.set()
+		#self.keithley.svbd.set()
 		self.keithley.SteadyV_BDThread.join(2)
 
 		#self.svbd = threading.Event()
@@ -167,4 +164,3 @@ class Keithley(object):
 		with open("SteadyV_BD_Baseline.txt","w") as txt_file:
 			for i in currents:
 				txt_file.write(str(i)+"\n")
-		
