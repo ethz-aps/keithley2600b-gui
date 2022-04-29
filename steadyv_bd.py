@@ -6,7 +6,7 @@ from PyQt5 import QtCore
 import threading
 import data
 import keithley
-import Temp_baseline as Tbl
+
 
 
 class SteadyV_BD (QWidget):
