@@ -78,6 +78,7 @@ class SteadyV_BD (QWidget):
         self.graphWidget.setLabel('bottom', 'Time')
         self.graphWidget.showGrid(x=True, y=True)
         self.data_line = self.graphWidget.plot([], [])
+        self.data_line.plot.setLogMode(False, True)
 
         self.timer = QtCore.QTimer()
         self.timer.setInterval(100)
