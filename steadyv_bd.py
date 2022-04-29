@@ -74,10 +74,11 @@ class SteadyV_BD (QWidget):
         self.graphWidget = pg.PlotWidget()
         self.graphWidget.setBackground('w')
         self.graphWidget.setTitle("Steady Voltage BD")
-        self.graphWidget.setLabel('left', 'Current')
+        self.graphWidget.setLabel('left', 'Current',units='V')
         self.graphWidget.setLabel('bottom', 'Time')
-        self.graphWidget.showGrid(x=True, y=True)
         self.graphWidget.setLogMode(False, True)
+        self.graphWidget.showGrid(x=True, y=True)
+        
         self.data_line = self.graphWidget.plot([], [])
 
 
