@@ -150,8 +150,8 @@ class Keithley(object):
 		self.data.closeFile()
 		self.data.steadyV_BD = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
-		#self.keithley.svbd.set()
-		self.keithley.SteadyV_BDThread.join(2)
+		self.svbd.set()
+		self.SteadyV_BDThread.join(2)
 
 		#self.svbd = threading.Event()
 		#self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'test3'))
