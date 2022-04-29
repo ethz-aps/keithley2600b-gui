@@ -154,8 +154,8 @@ class Keithley(object):
 		self.data.steadyV_BD = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 
-		self.svbd = threading.Event()
-		self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'test3'))
+		#self.svbd = threading.Event()
+		#self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'test3'))
 		return
 
 	def svbd_baseline(self):
