@@ -150,8 +150,7 @@ class Keithley(object):
 		self.data.closeFile()
 		self.data.steadyV_BD = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
-		self.svbd.set()
-		self.SteadyV_BDThread.join(2)
+
 
 		#self.svbd = threading.Event()
 		#self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'test3'))
@@ -160,7 +159,7 @@ class Keithley(object):
 	def svbd_baseline(self):
 		#voltages, currents = (range(-2000,2010,10),range(-200,201))
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON
-		voltages,currents = self.k.voltage_sweep_single_smu(self.k.smua, range(-200, 201), 0.05 ,0.05, False)
+		voltages,currents = self.k.voltage_sweep_single_smu(self.k.smua, range(-200, 201), 0.05 ,-1, False)
 		with open("SteadyV_BD_Baseline.txt","w") as txt_file:
 			for i in currents:
 				txt_file.write(str(i)+"\n")
