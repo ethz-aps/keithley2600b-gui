@@ -77,6 +77,7 @@ class SteadyV_BD (QWidget):
         self.graphWidget.setLabel('left', 'Current')
         self.graphWidget.setLabel('bottom', 'Time')
         self.graphWidget.showGrid(x=True, y=True)
+        self.graphWidget.plot.setLogMode(False, True)
         self.data_line = self.graphWidget.plot([], [])
         self.data_line.plot.setLogMode(False, True)
 
