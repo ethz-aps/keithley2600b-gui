@@ -158,7 +158,7 @@ class SteadyV_BD (QWidget):
         self.data.closeFile()
 
     def baseline_click(self):
-        Tbl.svbd_baseline(self)
+        self.keithley.svbd_baseline()
         self.popUp_svbd.exec_()
 
     def popup_svbd_clicked(self):

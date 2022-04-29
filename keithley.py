@@ -129,7 +129,7 @@ class Keithley(object):
 		while True:
 
 			i = self.k.smua.measure.i()
-			
+
 			if count<5: #Measurement does not record the first 5 values because of inaccuries in the measurement system
 				count = count + 1
 				sleep(self.sampling_t)
@@ -156,4 +156,13 @@ class Keithley(object):
 
 		self.svbd = threading.Event()
 		self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'test3'))
+		return
+
+	def svbd_baseline(self):
+		#voltages, currents = (range(-2000,2010,10),range(-200,201))
+		self.k.smua.source.output = self.k.smua.OUTPUT_ON
+		voltages,currents = self.k.voltage_sweep_single_smu(self.k.smua, range(-200, 201), 1, 0.5, False,)
+		with open("SteadyV_BD_Baseline.txt","w") as txt_file:
+			for i in currents:
+				txt_file.write(str(i)+"\n")
 		return
