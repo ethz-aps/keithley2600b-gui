@@ -144,7 +144,10 @@ class Keithley(object):
 				break
 
 			if np.abs(i-i_prev) > 10*np.abs(i_prev) or np.abs(i) > 0.1:
-				break
+				self.data.closeFile()
+				self.data.steadyV_BD = False
+				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+				return
 			i_prev = i
 			sleep(self.sampling_t)
 		self.data.closeFile()
@@ -152,8 +155,8 @@ class Keithley(object):
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 
 
-		#self.svbd = threading.Event()
-		#self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'test3'))
+		self.svbd = threading.Event()
+		self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'test3'))
 		return
 
 	def svbd_baseline(self):
