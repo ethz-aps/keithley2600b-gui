@@ -74,19 +74,21 @@ class SteadyV_BD (QWidget):
         self.graphWidget = pg.PlotWidget()
         self.graphWidget.setBackground('w')
         self.graphWidget.setTitle("Steady Voltage BD")
-        self.graphWidget.setLabel('left', 'Current')
-        self.graphWidget.setLabel('bottom', 'Time')
+        self.graphWidget.setLabel('left', 'Current[A]')
+        self.graphWidget.setLabel('bottom', 'Time[s]')
+        pen = pg.mkPen(color='k', width=2)
 
-        ticks= np.logspace(-12, 0, 20)
+        ticks= np.logspace(-12, 0, 10)
         #self.disableSIPrefix
         self.graphWidget.setLogMode(y=True)
+        self.graphWidget.enableAutoSIPrefix(enable=False)
         #self.graphWidget.disableAutoRange(axis='y')
         self.graphWidget.enableAutoRange()
         yax = self.graphWidget.getAxis('left')
-        yax.setTicks([[(v,str(v)) for v in ticks]])
+        #yax.setTicks([[(v,str(v)) for v in ticks]])
         self.graphWidget.setLogMode(y=True)
         self.graphWidget.showGrid(x=True, y=True)
-        self.data_line = self.graphWidget.plot([], [])
+        self.data_line = self.graphWidget.plot([], [], pen=pen, symbol='+',symbolSize=10,symbolBrush=('b'))
 
         self.timer = QtCore.QTimer()
         self.timer.setInterval(1000)
@@ -135,9 +137,7 @@ class SteadyV_BD (QWidget):
     def update_plot_data(self):
         y=[]
         yax = self.graphWidget.getAxis('left')
-        if (self.data.steadyV_BD):
-            [x, y] = self.data.getDataArray()
-            self.data_line.setData(x, y)
+
         if y:
             maxim = max(y)
             i= -14
@@ -150,8 +150,10 @@ class SteadyV_BD (QWidget):
             tick = np.logspace(j, i, num = 1000)
             ticks = list(tick)
             #self.graphWidget.setRange(yRange=(minim, maxim))
-            yax.setTicks([[(v, str(v)) for v in ticks]])
-
+            #yax.setTicks([[(v, str(v)) for v in ticks]])
+        if (self.data.steadyV_BD):
+            [x, y] = self.data.getDataArray()
+            self.data_line.setData(x, y)
 
 
         # def popup_clicked(self):
