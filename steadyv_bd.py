@@ -76,7 +76,7 @@ class SteadyV_BD (QWidget):
         self.graphWidget.setLabel('left', 'Current')
         self.graphWidget.setLabel('bottom', 'Time')
 
-        ticks= [i*(10**j) for j in range(-12,1) for i in range(1,10)]
+        ticks= [i*(10**j) for i in range(1,10) for j in range(-12,1)]
         #self.disableSIPrefix
         self.graphWidget.setLogMode(y=True)
         self.graphWidget.setRange(yRange=(1*10**(-12), 9*10**(0)), disableAutoRange=True)
