@@ -5,6 +5,7 @@ from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
 import threading
 import data
+from time import sleep
 
 class TabTDDB(QWidget):
 	"""
