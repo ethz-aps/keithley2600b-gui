@@ -138,11 +138,11 @@ class SteadyV_BD (QWidget):
             self.data_line.setData(self.x, self.y)
         max = np.max(self.y)
         i= -13
-        for 10**i < max:
+        while (10**i<max):
             i= i+1
         min = np.min(self.y)
         j=1
-        for 10**j > min
+        while (10**j>min):
             j = j-1
         tick = np.logspace(j, i, num= int(10))
         ticks = list(tick)
