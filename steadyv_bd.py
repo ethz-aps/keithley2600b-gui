@@ -75,12 +75,12 @@ class SteadyV_BD (QWidget):
         self.graphWidget.setTitle("Steady Voltage BD")
         self.graphWidget.setLabel('left', 'Current')
         self.graphWidget.setLabel('bottom', 'Time')
-        self.enableAutoSIPrefix(enable=False)
+        self.graphWidget.enableAutoSIPrefix(enable=False)
         ticks= [i*(10**j) for j in range(-12,1) for i in range(1,10)]
         #self.disableSIPrefix
         self.graphWidget.setLogMode(y=True)
         self.graphWidget.setRange(yrange = (1*10**(-12),9*10**(0)), disableAutoRange=True)
-        self.enableAutoRange(axis='x')
+        self.graphWidget.enableAutoRange(axis='x')
         yax = self.graphWidget.getAxis('left')
         yax.setTicks([[(v,str(v)) for v in ticks]])
         self.graphWidget.showGrid(x=True, y=True)
