@@ -75,7 +75,7 @@ class SteadyV_BD (QWidget):
         self.graphWidget.setTitle("Steady Voltage BD")
         self.graphWidget.setLabel('left', 'Current')
         self.graphWidget.setLabel('bottom', 'Time')
-        self.graphWidget.enableAutoSIPrefix(enable=False)
+        
         ticks= [i*(10**j) for j in range(-12,1) for i in range(1,10)]
         #self.disableSIPrefix
         self.graphWidget.setLogMode(y=True)
