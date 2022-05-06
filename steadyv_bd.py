@@ -140,14 +140,14 @@ class SteadyV_BD (QWidget):
             self.data_line.setData(x, y)
         if y:
             maxim = max(y)
-            i= -13
+            i= -14
             while (10**i<maxim):
                 i= i+1
             minim = min(y)
             j=1
             while (10**j>minim):
                 j = j-1
-            tick = np.logspace(j, i, num= int(10))
+            tick = np.logspace(j, i, num = 10*np.abs(j-i))
             ticks = list(tick)
             self.graphWidget.setRange(yRange=(minim, maxim))
             yax.setTicks([[(v, str(v)) for v in ticks]])
@@ -180,7 +180,7 @@ class SteadyV_BD (QWidget):
 
     def stop_click(self):
         self.keithley.abort = True
-        SteadyV_BDThread.join()
+        sleep(self.sampleTime)
         self.data.closeFile()
 
     def baseline_click(self):
