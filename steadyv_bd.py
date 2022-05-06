@@ -134,10 +134,9 @@ class SteadyV_BD (QWidget):
 
     def update_plot_data(self):
         if (self.data.steadyV_BD):
-            [self.x, self.y] = self.data.getDataArray()
-            self.data_line.setData(self.x, self.y)
-        y = self.y.copy()
-
+            [x, y] = self.data.getDataArray()
+            self.data_line.setData(x, y)
+        
         maxim = np.max(y).tolist()
         i= -13
         while (10**i<maxim):
