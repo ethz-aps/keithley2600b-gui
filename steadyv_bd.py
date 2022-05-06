@@ -7,6 +7,7 @@ from PyQt5 import QtCore
 import threading
 import data
 import keithley
+from time import sleep
 
 
 
@@ -76,7 +77,7 @@ class SteadyV_BD (QWidget):
         self.graphWidget.setTitle("Steady Voltage BD")
         self.graphWidget.setLabel('left', 'Current[A]')
         self.graphWidget.setLabel('bottom', 'Time[s]')
-        pen = pg.mkPen(color='k', width=2)
+        pen = pg.mkPen(color='k', width=1)
 
         ticks= np.logspace(-12, 0, 10)
         #self.disableSIPrefix
@@ -88,7 +89,7 @@ class SteadyV_BD (QWidget):
         #yax.setTicks([[(v,str(v)) for v in ticks]])
         self.graphWidget.setLogMode(y=True)
         self.graphWidget.showGrid(x=True, y=True)
-        self.data_line = self.graphWidget.plot([], [], pen=pen, symbol='+',symbolSize=10,symbolBrush=('b'))
+        self.data_line = self.graphWidget.plot([], [], pen=pen)
 
         self.timer = QtCore.QTimer()
         self.timer.setInterval(1000)
