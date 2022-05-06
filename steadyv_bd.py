@@ -133,15 +133,16 @@ class SteadyV_BD (QWidget):
         self.ButtonGroupbox.setLayout(self.layout)
 
     def update_plot_data(self):
+        y=[]
         if (self.data.steadyV_BD):
             [x, y] = self.data.getDataArray()
             self.data_line.setData(x, y)
-        
-        maxim = np.max(y).tolist()
+
+        maxim = max(y)
         i= -13
         while (10**i<maxim):
             i= i+1
-        minim = np.min(y).tolist()
+        minim = min(y)
         j=1
         while (10**j>minim):
             j = j-1
