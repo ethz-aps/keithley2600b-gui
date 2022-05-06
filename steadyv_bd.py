@@ -137,19 +137,19 @@ class SteadyV_BD (QWidget):
         if (self.data.steadyV_BD):
             [x, y] = self.data.getDataArray()
             self.data_line.setData(x, y)
-
-        maxim = max(y)
-        i= -13
-        while (10**i<maxim):
-            i= i+1
-        minim = min(y)
-        j=1
-        while (10**j>minim):
-            j = j-1
-        tick = np.logspace(j, i, num= int(10))
-        ticks = list(tick)
-        yax.setTicks([[(v, str(v)) for v in ticks]])
-        self.graphWidget.setRange(yRange=(0.9*min,1.1*max))
+        if y:
+            maxim = max(y)
+            i= -13
+            while (10**i<maxim):
+                i= i+1
+            minim = min(y)
+            j=1
+            while (10**j>minim):
+                j = j-1
+            tick = np.logspace(j, i, num= int(10))
+            ticks = list(tick)
+            yax.setTicks([[(v, str(v)) for v in ticks]])
+            self.graphWidget.setRange(yRange=(0.9*min,1.1*max))
 
 
         # def popup_clicked(self):
