@@ -13,7 +13,6 @@ class SteadyV_BD (QWidget):
     """
     Design & Functionality of Tab for Steady Voltage Breakdown Measurements
     """
-
     def __init__(self, k, p, d, c):
         super().__init__()
 

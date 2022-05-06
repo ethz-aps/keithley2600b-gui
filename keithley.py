@@ -153,7 +153,7 @@ class Keithley(object):
 Thread Problem: Not a thread problem
 """
 
-		return
+	
 
 	def svbd_baseline(self):
 		#voltages, currents = (range(-2000,2010,10),range(-200,201))
