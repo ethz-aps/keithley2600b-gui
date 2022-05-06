@@ -81,10 +81,10 @@ class SteadyV_BD (QWidget):
         ticks= np.logspace(-12, 0, 10)
         #self.disableSIPrefix
         self.graphWidget.setLogMode(y=True)
-        self.graphWidget.enableAutoSIPrefix(enable=False)
         #self.graphWidget.disableAutoRange(axis='y')
         self.graphWidget.enableAutoRange()
         yax = self.graphWidget.getAxis('left')
+        yax.enableAutoSIPrefix(enable=False)
         #yax.setTicks([[(v,str(v)) for v in ticks]])
         self.graphWidget.setLogMode(y=True)
         self.graphWidget.showGrid(x=True, y=True)
