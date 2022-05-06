@@ -80,8 +80,8 @@ class SteadyV_BD (QWidget):
         ticks= np.logspace(-12, 0, 20)
         #self.disableSIPrefix
         self.graphWidget.setLogMode(y=True)
-        self.graphWidget.disableAutoRange(axis='y')
-        self.graphWidget.enableAutoRange(axis='x')
+        #self.graphWidget.disableAutoRange(axis='y')
+        self.graphWidget.enableAutoRange()
         yax = self.graphWidget.getAxis('left')
         yax.setTicks([[(v,str(v)) for v in ticks]])
         self.graphWidget.setLogMode(y=True)
@@ -147,7 +147,7 @@ class SteadyV_BD (QWidget):
             j=1
             while (10**j>minim):
                 j = j-1
-            tick = np.logspace(j, i, num = 10*np.abs(j-i))
+            tick = np.logspace(j, i, num = 1000)
             ticks = list(tick)
             self.graphWidget.setRange(yRange=(minim, maxim))
             yax.setTicks([[(v, str(v)) for v in ticks]])
