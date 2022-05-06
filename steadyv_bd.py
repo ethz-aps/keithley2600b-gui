@@ -76,7 +76,7 @@ class SteadyV_BD (QWidget):
         self.graphWidget.setLabel('left', 'Current')
         self.graphWidget.setLabel('bottom', 'Time')
 
-        ticks= [i*(10**(-j)) for j in range(12,-1,-1) for i in range(1,10)]
+        ticks= np.logspace(0, 9)
         #self.disableSIPrefix
         self.graphWidget.setLogMode(y=True)
         self.graphWidget.setRange(yRange=(1*10**(-12), 9*10**(0)), disableAutoRange=True)
@@ -88,7 +88,7 @@ class SteadyV_BD (QWidget):
         self.data_line = self.graphWidget.plot([], [])
 
         self.timer = QtCore.QTimer()
-        self.timer.setInterval(100)
+        self.timer.setInterval(1000)
         self.timer.timeout.connect(self.update_plot_data)
         self.timer.start()
 
@@ -135,6 +135,11 @@ class SteadyV_BD (QWidget):
         if (self.data.steadyV_BD):
             [self.x, self.y] = self.data.getDataArray()
             self.data_line.setData(self.x, self.y)
+        max = np.max(self.y)
+        min = np.mix(self.y)
+        ticks = np.logpspace(min, max)
+        yax.setTicks([[(v, str(v)) for v in ticks]])
+
 
         # def popup_clicked(self):
         #     self.data.setParamSteadyV_BD(self.vSpinBox.value(), self.sampleSpinBox.value(),self.line.text())
