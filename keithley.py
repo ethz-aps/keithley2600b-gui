@@ -149,9 +149,7 @@ class Keithley(object):
 		self.data.closeFile()
 		self.data.steadyV_BD = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
-"""
-Thread Problem: Not a thread problem
-"""
+
 	def svbd_baseline(self):
 		#voltages, currents = (range(-2000,2010,10),range(-200,201))
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON
