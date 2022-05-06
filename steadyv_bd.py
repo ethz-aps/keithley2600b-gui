@@ -134,6 +134,7 @@ class SteadyV_BD (QWidget):
 
     def update_plot_data(self):
         y=[]
+        yax = self.graphWidget.getAxis('left')
         if (self.data.steadyV_BD):
             [x, y] = self.data.getDataArray()
             self.data_line.setData(x, y)
