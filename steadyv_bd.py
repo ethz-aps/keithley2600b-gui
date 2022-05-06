@@ -149,8 +149,9 @@ class SteadyV_BD (QWidget):
                 j = j-1
             tick = np.logspace(j, i, num= int(10))
             ticks = list(tick)
+            self.graphWidget.setRange(yRange=(minim, maxim))
             yax.setTicks([[(v, str(v)) for v in ticks]])
-            self.graphWidget.setRange(yRange=(0.9*minim,1.1*maxim))
+            
 
 
         # def popup_clicked(self):
