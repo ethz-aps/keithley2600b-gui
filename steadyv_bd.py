@@ -76,11 +76,16 @@ class SteadyV_BD (QWidget):
         self.graphWidget.setTitle("Steady Voltage BD")
         self.graphWidget.setLabel('left', 'Current')
         self.graphWidget.setLabel('bottom', 'Time')
+        self.enableAutoSIPrefix(enable=False)
+        ticks= [i*(10**j) for j in range(-12,1) for i in range(1,10)]
+        #self.disableSIPrefix
         self.graphWidget.setLogMode(y=True)
+        self.graphWidget.setRange(yrange = (1*10**(-12),9*10**(0)), disableAutoRange=True)
+        self.enableAutoRange(axis='x')
+        yax = self.graphWidget.getAxis('left')
+        yax.setTicks([[(v,str(v)) for v in ticks]])
         self.graphWidget.showGrid(x=True, y=True)
-         
         self.data_line = self.graphWidget.plot([], [])
-
 
         self.timer = QtCore.QTimer()
         self.timer.setInterval(100)
@@ -152,12 +157,12 @@ class SteadyV_BD (QWidget):
 
         self.keithley.voltage = self.vSpinBox.value()
         self.keithley.sampling_t = self.sampleSpinBox.value()
-        self.keithley.SteadyV_BDThread.start()
+        SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD)
+        SteadyV_BDThread.start()
 
     def stop_click(self):
-        self.keithley.svbd.set()
-        self.keithley.SteadyV_BDThread.join(2)
-        self.keithley.SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD, args=(self.keithley.svbd, 'test3'))
+        self.keithley.abort = True
+        self.keithley.SteadyV_BDThread.join()
         self.data.closeFile()
 
     def baseline_click(self):

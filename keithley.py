@@ -24,6 +24,7 @@ class Keithley(object):
 		self.voltage = 0
 
 		#self.stop_the_thread = False
+		self.abort = False
 
 		#Thread for stress-measurement
 		self.pill2kill = threading.Event()
@@ -34,8 +35,8 @@ class Keithley(object):
 		self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'thread2'))
 
 		#Thread for Steady Voltage Breakdown Measurement
-		self.svbd = threading.Event()
-		self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'thread3'))
+		#self.svbd = threading.Event()
+		#self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'thread3'))
 
 		self.address = self.config['Keithley']['address']
 		self.k = Keithley2600(self.address,open_timeout = 1000)
@@ -117,7 +118,7 @@ class Keithley(object):
 		self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'test'))
 		return
 
-	def steadyV_BD(self, stop_event, arg):         #Ignore 5 first
+	def steadyV_BD(self):         #Ignore 5 first
 		# steady voltage Breakdown meas.
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON
 		self.k.apply_voltage(self.k.smua, self.voltage)
@@ -138,25 +139,20 @@ class Keithley(object):
 			tm = time.time() - start_time
 			self.data.setDataPoint(tm, i)
 			self.data.saveDataPointtoFile(tm, i)
-			if stop_event.wait(0.1):
-				self.data.steadyV_BD = False
-				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+			if self.abort:
 				break
 
 			if np.abs(i-i_prev) > 10*np.abs(i_prev) or np.abs(i) > 0.1:
-				self.data.closeFile()
-				self.data.steadyV_BD = False
-				self.k.smua.source.output = self.k.smua.OUTPUT_OFF
-				return
+				break
 			i_prev = i
 			sleep(self.sampling_t)
 		self.data.closeFile()
 		self.data.steadyV_BD = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
+"""
+Thread Problem: Not a thread problem
+"""
 
-
-		self.svbd = threading.Event()
-		self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'test3'))
 		return
 
 	def svbd_baseline(self):
