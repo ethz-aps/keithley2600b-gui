@@ -83,6 +83,7 @@ class SteadyV_BD (QWidget):
         self.graphWidget.enableAutoRange(axis='x')
         yax = self.graphWidget.getAxis('left')
         yax.setTicks([[(v,str(v)) for v in ticks]])
+        slef.graphWidget.setLogMode(y=True)
         self.graphWidget.showGrid(x=True, y=True)
         self.data_line = self.graphWidget.plot([], [])
 
