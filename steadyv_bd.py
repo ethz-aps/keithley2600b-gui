@@ -136,11 +136,13 @@ class SteadyV_BD (QWidget):
         if (self.data.steadyV_BD):
             [self.x, self.y] = self.data.getDataArray()
             self.data_line.setData(self.x, self.y)
-        maxim = max(self.y)
+        y  = self.y
+
+        maxim = max(y)
         i= -13
         while (10**i<maxim):
             i= i+1
-        minim = min(self.y)
+        minim = min(y)
         j=1
         while (10**j>minim):
             j = j-1
