@@ -89,6 +89,7 @@ class SteadyV_BD (QWidget):
         #yax.setTicks([[(v,str(v)) for v in ticks]])
         self.graphWidget.setLogMode(y=True)
         self.graphWidget.showGrid(x=True, y=True)
+        self.graphWidget.setMouseEnabled(x=False,y=True)
         self.data_line = self.graphWidget.plot([], [], pen=pen)
 
         self.timer = QtCore.QTimer()
