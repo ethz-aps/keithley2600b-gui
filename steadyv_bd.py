@@ -151,7 +151,7 @@ class SteadyV_BD (QWidget):
             ticks = list(tick)
             self.graphWidget.setRange(yRange=(minim, maxim))
             yax.setTicks([[(v, str(v)) for v in ticks]])
-            
+
 
 
         # def popup_clicked(self):
@@ -180,7 +180,7 @@ class SteadyV_BD (QWidget):
 
     def stop_click(self):
         self.keithley.abort = True
-        self.keithley.SteadyV_BDThread.join()
+        SteadyV_BDThread.join()
         self.data.closeFile()
 
     def baseline_click(self):
