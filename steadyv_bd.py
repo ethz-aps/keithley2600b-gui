@@ -149,7 +149,7 @@ class SteadyV_BD (QWidget):
                 j = j-1
             tick = np.logspace(j, i, num = 1000)
             ticks = list(tick)
-            self.graphWidget.setRange(yRange=(minim, maxim))
+            #self.graphWidget.setRange(yRange=(minim, maxim))
             yax.setTicks([[(v, str(v)) for v in ticks]])
 
 
