@@ -137,7 +137,7 @@ class SteadyV_BD (QWidget):
             [self.x, self.y] = self.data.getDataArray()
             self.data_line.setData(self.x, self.y)
         max = np.max(self.y)
-        min = np.mix(self.y)
+        min = np.min(self.y)
         ticks = np.logpspace(min, max)
         yax.setTicks([[(v, str(v)) for v in ticks]])
 
