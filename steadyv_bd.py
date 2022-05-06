@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QDoubleSpinBox, QMessageBox, QGroupBox, QFormLayout, QVBoxLayout, QCheckBox, QLineEdit, QComboBox, QHBoxLayout
 from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
+import numpy as np
 import pyqtgraph as pg
 from PyQt5 import QtCore
 import threading
