@@ -126,6 +126,7 @@ class Keithley(object):
 		self.data.openFile()
 		i_prev = 10
 		count = 0
+		start_time=time.time()
 
 		while True:
 
@@ -133,19 +134,21 @@ class Keithley(object):
 
 			if count<5: #Measurement does not record the first 5 values because of inaccuries in the measurement system
 				count = count + 1
-				sleep(self.sampling_t)
+				sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
 				start_time = time.time()
 				continue
 			tm = time.time() - start_time
 			self.data.setDataPoint(tm, i)
 			self.data.saveDataPointtoFile(tm, i)
 			if self.abort:
+				print("pressed Stop")
 				break
 
 			if np.abs(i) > 10*np.abs(i_prev) or np.abs(i) > 0.001:
+				print("current too big")
 				break
 			i_prev = i
-			sleep(self.sampling_t)
+			sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
 		self.data.closeFile()
 		self.data.steadyV_BD = False
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF

@@ -179,12 +179,12 @@ class SteadyV_BD (QWidget):
 
         self.keithley.voltage = self.vSpinBox.value()
         self.keithley.sampling_t = self.sampleSpinBox.value()
-        SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD)
+        global SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD)
         SteadyV_BDThread.start()
 
     def stop_click(self):
         self.keithley.abort = True
-        sleep(self.sampleTime)
+        SteadyV_BDThread.join()
         self.data.closeFile()
 
     def baseline_click(self):
