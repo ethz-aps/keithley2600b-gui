@@ -137,6 +137,7 @@ class Keithley(object):
 				count = 5
 				sleep(20)
 				#sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
+				print("20sec to stabilize Voltage over")
 				start_time = time.time()
 				continue
 			tm = time.time() - start_time
@@ -146,7 +147,7 @@ class Keithley(object):
 				print("pressed Stop")
 				break
 
-			if np.abs(i) > 4*np.abs(i_prev) or np.abs(i) > 0.000001: #aborts if current > 1 uA
+			if (np.abs(i) > 4*np.abs(i_prev) or np.abs(i) > 0.001): #aborts if current > 1 mA
 				print("current too big")
 				break
 			i_prev = i
