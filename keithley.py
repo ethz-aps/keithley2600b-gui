@@ -133,8 +133,10 @@ class Keithley(object):
 			i = self.k.smua.measure.i()
 
 			if count<5: #Measurement does not record the first 5 values because of inaccuries in the measurement system
-				count = count + 1
-				sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
+				#count = count + 1
+				count = 5
+				sleep(20)
+				#sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
 				start_time = time.time()
 				continue
 			tm = time.time() - start_time
