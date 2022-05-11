@@ -171,7 +171,7 @@ class SteadyV_BD (QWidget):
 
     def start_click(self):
         self.data.steadyV_BD = True
-
+        self.keithley.abort = False
         self.data_line.clear()
         self.data.clearData()
         self.data.setParamSteadyV_BD(self.vSpinBox.value(), self.sampleSpinBox.value(),

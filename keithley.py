@@ -144,7 +144,7 @@ class Keithley(object):
 				print("pressed Stop")
 				break
 
-			if np.abs(i) > 10*np.abs(i_prev) or np.abs(i) > 0.001:
+			if np.abs(i) > 4*np.abs(i_prev) or np.abs(i) > 0.000001: #aborts if current > 1 uA
 				print("current too big")
 				break
 			i_prev = i
