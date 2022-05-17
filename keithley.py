@@ -124,20 +124,20 @@ class Keithley(object):
 		self.k.apply_voltage(self.k.smua, self.voltage)
 		self.sampling_t = int(self.sampling_t)
 		self.data.openFile()
-		i_prev = 10
+		end_timer = 0
 		count = 0
 		start_time=time.time()
+		current_to_big = False
+		meas_break = 100 #How many seconds after limit measurement continues
 
 		while True:
 
 			i = self.k.smua.measure.i()
 
 			if count<5: #Measurement does not record the first 5 values because of inaccuries in the measurement system
-				#count = count + 1
-				count = 5
-				sleep(20)
-				#sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
-				print("20sec to stabilize Voltage over")
+				count = count + 1
+				sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
+				print("time to stabilize Voltage")
 				start_time = time.time()
 				continue
 			tm = time.time() - start_time
@@ -146,11 +146,18 @@ class Keithley(object):
 			if self.abort:
 				print("pressed Stop")
 				break
+			if np.abs(i)>=0.1: #starts timer for end of measurement, because current limit has been reached
+				current_to_big = True
 
-			if (np.abs(i) > 4*np.abs(i_prev) or np.abs(i) > 0.001): #aborts if current > 1 mA
-				print("current too big")
-				break
-			i_prev = i
+			if current_to_big:
+				end_timer += 1
+
+
+			if end_timer > meas_break//self.sampling_t:
+				print("last measurement")
+				self.abort = True
+
+
 			sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
 		self.data.closeFile()
 		self.data.steadyV_BD = False
