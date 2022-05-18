@@ -125,7 +125,7 @@ class Keithley(object):
 		self.sampling_t = int(self.sampling_t)
 		self.data.openFile()
 		end_timer = 0
-		count = 0
+		count = 2
 		start_time=time.time()
 		current_to_big = False
 		meas_break = 100 #How many seconds after limit measurement continues
