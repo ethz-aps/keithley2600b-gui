@@ -134,8 +134,8 @@ class Keithley(object):
 
 			i = self.k.smua.measure.i()
 
-			if count<5: #Measurement does not record the first 5 values because of inaccuries in the measurement system
-				count = count + 1
+			if count>0: #Measurement does not record the first 5 values because of inaccuries in the measurement system
+				count = count -1
 				sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
 				print("time to stabilize Voltage")
 				start_time = time.time()
@@ -161,6 +161,7 @@ class Keithley(object):
 			sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
 		self.data.closeFile()
 		self.data.steadyV_BD = False
+		self.k.apply_voltage(self.k.smua, 0)
 		self.k.smua.source.output = self.k.smua.OUTPUT_OFF
 
 	def svbd_baseline(self):

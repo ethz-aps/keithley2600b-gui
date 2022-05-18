@@ -187,7 +187,7 @@ class SteadyV_BD (QWidget):
         self.keithley.abort = True
         SteadyV_BDThread.join()
         self.data.closeFile()
-        
+
 
     def baseline_click(self):
         self.keithley.svbd_baseline()
