@@ -22,6 +22,9 @@ class Keithley(object):
 		self.period = 0
 		self.sampling_t = 0
 		self.voltage = 0
+		self.current_compliance = 0
+		self.start_delay = 0
+		self.stop_delay = 0
 
 		#self.stop_the_thread = False
 		self.abort = False
@@ -118,22 +121,22 @@ class Keithley(object):
 		self.TDDBThread = threading.Thread(target=self.tddb, args=(self.thread, 'test'))
 		return
 
-	def steadyV_BD(self):         #Ignore 5 first
+	def steadyV_BD(self):
 		# steady voltage Breakdown meas.
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON
 		self.k.apply_voltage(self.k.smua, self.voltage)
 		self.sampling_t = int(self.sampling_t)
 		self.data.openFile()
 		end_timer = 0
-		count = 2
+		count = 1
+		meas_break = 100
+		count = self.start_delay #How many Meas
 		start_time=time.time()
 		current_to_big = False
-		meas_break = 100 #How many seconds after limit measurement continues
-
+		current_limit = self.current_compliance
+		meas_break = self.stop_delay #How many seconds after limit measurement continues
 		while True:
-
 			i = self.k.smua.measure.i()
-
 			if count>0: #Measurement does not record the first 5 values because of inaccuries in the measurement system
 				count = count -1
 				sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
@@ -146,18 +149,13 @@ class Keithley(object):
 			if self.abort:
 				print("pressed Stop")
 				break
-			if np.abs(i)>=0.1: #starts timer for end of measurement, because current limit has been reached
+			if np.abs(i)>=current_limit: #starts timer for end of measurement, because current limit has been reached
 				current_to_big = True
-
 			if current_to_big:
 				end_timer += 1
-
-
 			if end_timer > meas_break//self.sampling_t:
 				print("last measurement")
 				self.abort = True
-
-
 			sleep(self.sampling_t-(time.time()-start_time) % self.sampling_t)
 		self.data.closeFile()
 		self.data.steadyV_BD = False

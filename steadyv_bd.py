@@ -27,9 +27,15 @@ class SteadyV_BD (QWidget):
         self.v = float(self.config['SteadyV_BD']['v'])
         self.sampleTime = float(self.config['SteadyV_BD']['sampletime'])
         self.vmax = float(self.config['Keithley']['voltage_compliance'])
+        self.current_compliance = float(self.config['SteadyV_BD']['current_compliance'])
+        self.stop_delay = float(self.config['SteadyV_BD']['stop_delay'])
+        self.start_delay = float(self.config['SteadyV_BD']['start_delay'])
 
         self.vLabel = QLabel('Applied Voltage: ')
         self.sampleLabel = QLabel('Sampling Time: ')
+        self.c_complianceLabel = QLabel('Current Compliance: ')
+        self.stop_delayLabel = QLabel('Stop Delay: ')
+        self.start_delayLabel = QLabel('Start Delay: ')
 
         self.vSpinBox = QDoubleSpinBox()
         self.vSpinBox.setMaximum(200)
@@ -40,6 +46,20 @@ class SteadyV_BD (QWidget):
         self.sampleSpinBox.setMaximum(100)
         self.sampleSpinBox.setMinimum(1)
         self.sampleSpinBox.setValue(self.sampleTime)
+
+        self.c_complianceSpinBox = QDoubleSpinBox()
+        self.c_complianceSpinBox.setMaximum(0.1)
+        self.c_complianceSpinBox.setMinimum(0)
+        self.c_complianceSpinBox.setValue(self.current_compliance)
+
+        self.start_delaySpinBox = QDoubleSpinBox()
+        self.start_delaySpinBox.setMaximum(100)
+        self.start_delaySpinBox.setMinimum(0)
+        self.start_delaySpinBox.setValue(self.start_delay)
+
+        self.stop_delaySpinBox = QDoubleSpinBox()
+        self.stop_delaySpinBox.setMinimum(0)
+        self.stop_delaySpinBox.setValue(self.stop_delay)
 
         # self.cbBase = QCheckBox("Perform Baseline Measurement", self)
         # self.cbBase.setChecked(True)
@@ -52,8 +72,8 @@ class SteadyV_BD (QWidget):
         self.buttonStart.clicked.connect(self.start_click)
         self.buttonStop = QPushButton("Stop", self)
         self.buttonStop.clicked.connect(self.stop_click)
-        self.buttonBaseline = QPushButton("Baseline",self)
-        self.buttonBaseline.clicked.connect(self.baseline_click)
+        #self.buttonBaseline = QPushButton("Baseline",self)
+        #self.buttonBaseline.clicked.connect(self.baseline_click)
 
         self.popUp_svbd = QMessageBox()
         self.popUp_svbd.setWindowTitle("Baseline Measurement complete")
@@ -74,7 +94,7 @@ class SteadyV_BD (QWidget):
 
         self.graphWidget = pg.PlotWidget()
         self.graphWidget.setBackground('w')
-        self.graphWidget.setTitle("Steady Voltage BD")
+        self.graphWidget.setTitle("CSV-TDDB")
         self.graphWidget.setLabel('left', 'Current[A]')
         self.graphWidget.setLabel('bottom', 'Time[s]')
         pen = pg.mkPen(color='k', width=1)
@@ -126,6 +146,9 @@ class SteadyV_BD (QWidget):
         self.Layout = QFormLayout()
         self.Layout.addRow(self.vLabel, self.vSpinBox)
         self.Layout.addRow(self.sampleLabel, self.sampleSpinBox)
+        self.Layout.addRow(self.current_compliance, self.c_complianceSpinBox)
+        self.Layout.addRow(self.start_delay, self.start_delaySpinBox)
+        self.Layout.addRow(self.stop_delay, self.stop_delaySpinBox)
         self.FormGroupbox.setLayout(self.Layout)
 
     def createButtonGroupBox(self):
@@ -174,11 +197,14 @@ class SteadyV_BD (QWidget):
         self.keithley.abort = False
         self.data_line.clear()
         self.data.clearData()
-        self.data.setParamSteadyV_BD(self.vSpinBox.value(), self.sampleSpinBox.value(),
-                               self.line.text())
+        self.data.setParamSteadyV_BD(self.vSpinBox.value(), self.sampleSpinBox.value(), self.c_complianceSpinBox.value(),
+                               self.start_delaySpinBox.value, self.stop_delaySpinBox.value(), self.line.text())
 
         self.keithley.voltage = self.vSpinBox.value()
         self.keithley.sampling_t = self.sampleSpinBox.value()
+        self.keithley.current_compliance = self.c_complianceSpinBox.value()
+        self.keithley.start_delay = self.start_delaySpinBox.value()
+        self.keithley.stop_delay = self.stop_delaySpinBox.value()
         global SteadyV_BDThread
         SteadyV_BDThread = threading.Thread(target=self.keithley.steadyV_BD)
         SteadyV_BDThread.start()

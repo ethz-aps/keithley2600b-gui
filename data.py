@@ -37,6 +37,9 @@ class Datahandler:
 
 		self.device = []
 		#self.time_epoch = []
+		self.c_compliance = []
+		self.start_delay = []
+		self.stop_delay = []
 
 
 		#Parameters of Baseline-IV
@@ -108,9 +111,12 @@ class Datahandler:
 		self.s = t
 		self.device = dev
 
-	def setParamSteadyV_BD(self, v, t, dev):
+	def setParamSteadyV_BD(self, v, t, c_c, start_d, stop_d, dev):
 		self.v = v
 		self.s = t
+		self.c_compliance = c_c
+		self.start_delay = start_d
+		self.stop_delay = stop_d
 		self.device = dev
 
 	def setBaselineIV(self,y,s,e,st,t,d):
