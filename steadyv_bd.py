@@ -31,11 +31,11 @@ class SteadyV_BD (QWidget):
         self.stop_delay = float(self.config['SteadyV_BD']['stop_delay'])
         self.start_delay = float(self.config['SteadyV_BD']['start_delay'])
 
-        self.vLabel = QLabel('Applied Voltage: ')
-        self.sampleLabel = QLabel('Sampling Time: ')
-        self.c_complianceLabel = QLabel('Current Compliance: ')
-        self.stop_delayLabel = QLabel('Stop Delay: ')
-        self.start_delayLabel = QLabel('Start Delay: ')
+        self.vLabel = QLabel('Applied Voltage [V]: ')
+        self.sampleLabel = QLabel('Sampling Time [s]: ')
+        self.c_complianceLabel = QLabel('Current Compliance [A]: ')
+        self.stop_delayLabel = QLabel('Stop Delay [s]: ')
+        self.start_delayLabel = QLabel('Start Delay [#sampletime]: ')
 
         self.vSpinBox = QDoubleSpinBox()
         self.vSpinBox.setMaximum(200)
@@ -43,7 +43,7 @@ class SteadyV_BD (QWidget):
         self.vSpinBox.setValue(self.v)
 
         self.sampleSpinBox = QDoubleSpinBox()
-        self.sampleSpinBox.setMaximum(100)
+        self.sampleSpinBox.setMaximum(1000)
         self.sampleSpinBox.setMinimum(1)
         self.sampleSpinBox.setValue(self.sampleTime)
 
@@ -53,11 +53,12 @@ class SteadyV_BD (QWidget):
         self.c_complianceSpinBox.setValue(self.current_compliance)
 
         self.start_delaySpinBox = QDoubleSpinBox()
-        self.start_delaySpinBox.setMaximum(100)
+        self.start_delaySpinBox.setMaximum(1000)
         self.start_delaySpinBox.setMinimum(0)
         self.start_delaySpinBox.setValue(self.start_delay)
 
         self.stop_delaySpinBox = QDoubleSpinBox()
+        self.stop_delaySpinBox.setMaximum(100000)
         self.stop_delaySpinBox.setMinimum(0)
         self.stop_delaySpinBox.setValue(self.stop_delay)
 
