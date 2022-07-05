@@ -156,7 +156,7 @@ class SteadyV_BD (QWidget):
         self.layout = QHBoxLayout()
         self.layout.addWidget(self.buttonStart)
         self.layout.addWidget(self.buttonStop)
-        self.layout.addWidget(self.buttonBaseline)
+        #self.layout.addWidget(self.buttonBaseline)
         self.ButtonGroupbox.setLayout(self.layout)
 
     def update_plot_data(self):
