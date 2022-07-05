@@ -133,7 +133,7 @@ class Keithley(object):
 		count = self.start_delay #How many Meas
 		start_time=time.time()
 		current_to_big = False
-		current_limit = self.current_compliance
+		current_limit = self.current_compliance / 1000
 		meas_break = self.stop_delay #How many seconds after limit measurement continues
 		while True:
 			i = self.k.smua.measure.i()
