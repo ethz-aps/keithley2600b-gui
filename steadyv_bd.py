@@ -146,9 +146,9 @@ class SteadyV_BD (QWidget):
         self.Layout = QFormLayout()
         self.Layout.addRow(self.vLabel, self.vSpinBox)
         self.Layout.addRow(self.sampleLabel, self.sampleSpinBox)
-        self.Layout.addRow(self.current_compliance, self.c_complianceSpinBox)
-        self.Layout.addRow(self.start_delay, self.start_delaySpinBox)
-        self.Layout.addRow(self.stop_delay, self.stop_delaySpinBox)
+        self.Layout.addRow(self.c_complianceLabel, self.c_complianceSpinBox)
+        self.Layout.addRow(self.start_delayLabel, self.start_delaySpinBox)
+        self.Layout.addRow(self.stop_delayLabel, self.stop_delaySpinBox)
         self.FormGroupbox.setLayout(self.Layout)
 
     def createButtonGroupBox(self):
