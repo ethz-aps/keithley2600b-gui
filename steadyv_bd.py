@@ -46,6 +46,7 @@ class SteadyV_BD (QWidget):
         self.sampleSpinBox = QDoubleSpinBox()
         self.sampleSpinBox.setMaximum(1000)
         self.sampleSpinBox.setMinimum(1e-3)
+        self.sampleSpinBox.setDecimals(3)
         self.sampleSpinBox.setValue(self.sampleTime)
 
         self.c_complianceSpinBox = QDoubleSpinBox()
