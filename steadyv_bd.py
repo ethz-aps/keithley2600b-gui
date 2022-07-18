@@ -9,8 +9,6 @@ import data
 import keithley
 from time import sleep
 
-
-
 class SteadyV_BD (QWidget):
     """
     Design & Functionality of Tab for Steady Voltage Breakdown Measurements
