@@ -36,7 +36,10 @@ class Datahandler:
 		self.s =[]
 
 		self.device = []
-		self.time_epoch = []
+		#self.time_epoch = []
+		self.c_compliance = []
+		self.start_delay = []
+		self.stop_delay = []
 
 
 		#Parameters of Baseline-IV
@@ -62,6 +65,7 @@ class Datahandler:
 		self.transfer = False
 		self.stress = False
 		self.tddb = False
+		self.steadyV_BD = False
 
 	def setDataArray(self, x,y):
 		self.X = x
@@ -107,6 +111,14 @@ class Datahandler:
 		self.s = t
 		self.device = dev
 
+	def setParamSteadyV_BD(self, v, t, c_c, start_d, stop_d, dev):
+		self.v = v
+		self.s = t
+		self.c_compliance = c_c
+		self.start_delay = start_d
+		self.stop_delay = stop_d
+		self.device = dev
+
 	def setBaselineIV(self,y,s,e,st,t,d):
 		pickle.dump(self.Y,open(self.datadirectory + "/baseline.pkl",'wb'))
 		self.IV_start = s
@@ -123,6 +135,7 @@ class Datahandler:
 		self.OT_const = c
 		self.OT_int_time = t
 		self.OT_delay = d
+
 
 	def checkBaselineIV(self,s,e,st,t,d):
 		if(self.IV_start == s and self.IV_end == e and self.IV_step == st and self.IV_int_time == t and self.IV_delay == d):
@@ -146,7 +159,7 @@ class Datahandler:
 		"""
 		self.now = datetime.now()
 		self.time = self.now.strftime("%d/%m/%Y %H:%M:%S")
-		self.time_epoch = time.time()
+		#self.time_epoch = time.time()
 		self.measStart = ['Measurment Start:' + self.time]
 
 		self.keithley = ['Working with Keithley 2636B']
@@ -172,7 +185,12 @@ class Datahandler:
 			self.headerList = ['Time in [s]','Current in [A]','Timestamp']
 			self.measType = ['TDDB-Measurement']
 			self.param = ['Applied Voltage: ' + str(self.v)],['Length of Measurement: ' + str(self.p)],['Sampled every ' + str(self.s) + ' seconds']
-	
+		elif (self.steadyV_BD):
+			self.headerList = ['Time in [s]', 'Current in [A]']
+			self.measType = ['SteadyVoltage_DB-Measurement']
+			self.param = ['Applied Voltage: ' + str(self.v)], [
+				'Sampled every ' + str(self.s) + ' seconds']
+
 	def openFile(self):
 		self.writeHeader()
 
@@ -221,4 +239,3 @@ class Datahandler:
 				self.runner = n
 		
 		return self.runner+1
-

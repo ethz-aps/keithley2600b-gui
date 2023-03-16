@@ -4,6 +4,9 @@ from iv import TabIVLeak
 from output_transfer import TabOT
 from stress import TabStress
 from tddb import TabTDDB
+from steadyv_bd import SteadyV_BD
+import data
+from configobj import ConfigObj
 
 class Window(QDialog):
 	"""
@@ -28,6 +31,7 @@ class Window(QDialog):
 		tabwidget.addTab(TabStress(self.keithley,self.plot,self.data,self.config),"Stress")
 		tabwidget.addTab(TabTDDB(self.keithley,self.plot,self.data,self.config),"TDDB")
 		tabwidget.addTab(TabBaseline(self.keithley,self.plot,self.data),"Baseline")
+		tabwidget.addTab(SteadyV_BD(self.keithley,self.plot,self.data, self.config),"CSV-TDDB")
 
 		vbox.addWidget(tabwidget)
 		self.setLayout(vbox)

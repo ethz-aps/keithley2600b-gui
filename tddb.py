@@ -4,13 +4,15 @@ from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
 import threading
+import data
+from time import sleep
 
 class TabTDDB(QWidget):
 	"""
 	Design and funcionality of Tab for TDDB-measurements.
 	"""
 	def __init__(self,k,p,d,c):
-		super().__init__() 
+		super().__init__()
 
 		self.keithley = k
 		self.plot = p
@@ -26,7 +28,7 @@ class TabTDDB(QWidget):
 
 		self.vLabel = QLabel('Applied Voltage: ')
 		self.periodLabel = QLabel('Period: ')
-		self.sampleLabel = QLabel('Sampling Time: ')   
+		self.sampleLabel = QLabel('Sampling Time: ')
 
 		self.vSpinBox = QDoubleSpinBox()
 		self.vSpinBox.setMaximum(self.vmax)
@@ -89,7 +91,7 @@ class TabTDDB(QWidget):
 		self.layout.addWidget(self.graphWidget)
 		self.MeasGroupbox.setLayout(self.layout)
 
-	
+
 	def createFormGroupbox(self):
 		self.FormGroupbox = QGroupBox("Parameter")
 		self.Layout = QFormLayout()
@@ -110,21 +112,24 @@ class TabTDDB(QWidget):
 			[self.x,self.y]=self.data.getDataArray()
 			self.data_line.setData(self.x,self.y)
 
+
 	def start_click(self):
 		self.data.tddb = True
 
 		self.data_line.clear()
 		self.data.clearData()
-		self.data.setParamTDDB(self.vSpinBox.value(),self.periodSpinBox.value()+1,self.sampleSpinBox.value(),self.line.text())
+		self.data.setParamStress(self.vSpinBox.value(),self.periodSpinBox.value()+1,self.sampleSpinBox.value(),self.line.text())
 
 		self.keithley.voltage = self.vSpinBox.value()
 		self.keithley.period = self.periodSpinBox.value()+1
 		self.keithley.sampling_t = self.sampleSpinBox.value()
 		self.keithley.TDDBThread.start()
 
+
+
 	def stop_click(self):
+
 		self.keithley.thread.set()
-		self.keithley.stop_the_thread
+		self.keithley.TDDBThread.join(2)
 		self.keithley.TDDBThread=threading.Thread(target=self.keithley.tddb,args=(self.keithley.thread,'test'))
 		self.data.closeFile()
-

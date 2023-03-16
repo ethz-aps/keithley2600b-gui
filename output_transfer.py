@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QDoubleSpinBox, QMessageBox, QGroupBox, QFo
 from pyqtgraph import PlotWidget, plot
 from PyQt5.Qt import QLabel, QPushButton
 import pyqtgraph as pg
+import data
 
 class TabOT (QWidget):
 	"""
@@ -33,8 +34,8 @@ class TabOT (QWidget):
 		self.vStopLabel = QLabel('Stop Voltage: ')
 		self.vStepLabel = QLabel('dV: ')
 		self.vConstLabel = QLabel('Const Voltage: ')
-		self.delayLabel = QLabel('Delay: ')  
-		self.tLabel = QLabel('Int Time: ')  
+		self.delayLabel = QLabel('Delay: ')
+		self.tLabel = QLabel('Int Time: ')
 
 		self.vStartSpinBox = QDoubleSpinBox()
 		self.vStartSpinBox.setMaximum(20)
@@ -177,5 +178,5 @@ class TabOT (QWidget):
 			#Baseline measurement
 			self.keithley.sweep_const(self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(),self.vConstSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value())
 			self.data.setBaselineOT(self.data.Y,self.vStartSpinBox.value(), (self.vStopSpinBox.value()), self.vStepSpinBox.value(), self.vConstSpinBox.value(),self.tSpinBox.value(),self.delaySpinBox.value())
-			x = self.popUp.exec_()	
-
+			x = self.popUp.exec_()
+#
