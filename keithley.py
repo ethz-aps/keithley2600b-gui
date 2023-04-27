@@ -42,6 +42,7 @@ class Keithley(object):
 		#self.SteadyV_BDThread = threading.Thread(target=self.steadyV_BD, args=(self.svbd, 'thread3'))
 
 		self.address = self.config['Keithley']['address']
+		#print(self.address)
 		self.k = Keithley2600(self.address,open_timeout = 1000)
 		self.k.smua.source.output = self.k.smua.OUTPUT_ON
 		self.v=[]
